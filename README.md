@@ -40,7 +40,7 @@ client.guids.forEach((guild => {
 })
 ```
                                      
-#### Zeile 1115: client.login("XXXX")
+#### Zeile 1205: client.login("XXXX")
 
 Hier muss der zuvor erwähnte Token eingefügt werden.
     
