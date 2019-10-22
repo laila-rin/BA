@@ -48,6 +48,6 @@ Hier muss der zuvor erwähnte Token eingefügt werden.
 
 Nach erfolgreicher Anpassung des Quellcodes kann das Programm mit dem Befehl 
 ```
-node bat.js 
+node alfred.js 
 ```
 ausgeführt werden.
