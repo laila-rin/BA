@@ -32,11 +32,13 @@ Statt der XXXX muss die ID des generellen Servers eingesetzt werden.
 Diese kann aus der URL gelesen werden, es ist die letzte mehrstellige Zahl nach einem /.
      
 Oder durch die Ausführung des folgenden Codeabschnitts im Bereich des ready-Events auf der Konsole ausgegeben werden. Es ist die ID des general text:
+```
 client.guids.forEach((guild => {
    guild.channels.forEach((channel) => {
        console.log (` - ${channel.name) ${channel.type} ${channel.id}`)
    })
 })
+```
                                      
 #### Zeile 1115: client.login("XXXX")
 
