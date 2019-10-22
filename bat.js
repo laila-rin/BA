@@ -1202,4 +1202,4 @@ alleModule.push(businessplanseminar);
 
 //paste bots secret token as parameter to login: client.login("token")
 //paste token as string to client.login function
-client.login("NjE4NDY3Mjk0ODc1NzQ2MzA0.XW6HCQ.udcX0NdJvJu6lrLJuSc9N4j3spE")
+client.login("")
