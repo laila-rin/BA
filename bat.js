@@ -37,15 +37,17 @@ client.on('message', (recievedMessage) => {
     }
 
 
-    //falls eine Nachricht in den DM direkt an Alfred geschickt wird, direkt antworten und nicht nur spezielle Befehlstrigger(@Alfred oder !)
+    //falls eine Nachricht in den DM direkt an Alfred geschickt wird, 
+    //direkt antworten und nicht nur spezielle Befehlstrigger(@Alfred oder !)
     if (recievedMessage.guild == null) {
         if (recievedMessage.content.includes("wer bist du")) {
-            recievedMessage.channel.send("Nett, dass du fragst " + recievedMessage.author.toString() + ".\nIch bin ein Bot, der dir bei"
-                                        + " deiner Modulauswahl helfen soll. Besonders spezialisiert habe ich mich auf Vertiefungsmodule "
-                                        + "- dazu kann ich dir alle möglichen Infos geben! Für eine Liste aller Befehle, die ich ausführen "
-                                        + "kann schreibe mir einfach: !befehle.\nBitte beachte auch, dass ich für alle Infos, die ich dir gebe"
-                                        + " keine Haftung übernehme. Das bedeutet ich helfe dir sehr gerne, kann dir aber nicht versichern, "
-                                        + "dass meine Angaben stimmen.")
+            recievedMessage.channel.send("Nett, dass du fragst " + recievedMessage.author.toString() 
+                                        + ".\nIch bin ein Bot, der dir bei deiner Modulauswahl helfen soll. Besonders"
+                                        + " spezialisiert habe ich mich auf Vertiefungsmodule - dazu kann ich dir alle"
+                                        + " möglichen Infos geben! Für eine Liste aller Befehle, die ich ausführen "
+                                        + "kann schreibe mir einfach: !befehle.\nBitte beachte auch, dass ich für alle "
+                                        + "Infos, die ich dir gebe keine Haftung übernehme. Das bedeutet ich helfe dir "
+                                        + "sehr gerne, kann dir aber nicht versichern, dass meine Angaben stimmen.")
             return;
         }
         if (recievedMessage.content.startsWith("hallo") || recievedMessage.content.startsWith("Hallo")) {
@@ -75,11 +77,13 @@ client.on('message', (recievedMessage) => {
 
     //obere Befehle werden hier wiederholt, da der obere Code nur in den DM's funktioniert
     else if (recievedMessage.content.includes("wer bist du")) {
-        recievedMessage.channel.send("Nett, dass du fragst " + recievedMessage.author.toString() + ".\nIch bin ein Bot, der dir bei deiner "
-                                    + "Modulauswahl helfen soll. Besonders spezialisiert habe ich mich auf Vertiefungsmodule - dazu kann ich"
-                                    + " dir alle möglichen Infos geben! Für eine Liste aller Befehle, die ich ausführen kann schreibe mir "
-                                    + "einfach: !befehle.\nBitte beachte auch, dass ich für alle Infos, die ich dir gebe keine Haftung "
-                                    + "übernehme. Das bedeutet ich helfe dir sehr gerne, kann dir aber nicht versichern, dass meine Angaben stimmen.")
+        recievedMessage.channel.send("Nett, dass du fragst " + recievedMessage.author.toString() + ".\nIch bin ein Bot,"
+                                    + " der dir bei deiner Modulauswahl helfen soll. Besonders spezialisiert habe ich "
+                                    + "mich auf Vertiefungsmodule - dazu kann ich dir alle möglichen Infos geben! Für "
+                                    + "eine Liste aller Befehle, die ich ausführen kann schreibe mir einfach: !befehle."
+                                    + "\nBitte beachte auch, dass ich für alle Infos, die ich dir gebe keine Haftung "
+                                    + "übernehme. Das bedeutet ich helfe dir sehr gerne, kann dir aber nicht versichern, "
+                                    + "dass meine Angaben stimmen.")
     }
 
     else if (recievedMessage.content.startsWith("hilfe") || recievedMessage.content.startsWith("Hilfe")) {
@@ -111,14 +115,16 @@ client.on('message', (recievedMessage) => {
         let fullCommand = recievedMessage.content;
         let splitCommand = fullCommand.split(" ");
         splitCommand.shift(); 
-        //zusätzlich wird hier das erste Wort (@Alfred) aus dem String-Array entfernt, da das als Trigger fungiert hat und nun nicht mehr benötigt wird
+        //zusätzlich wird hier das erste Wort (@Alfred) aus dem String-Array entfernt, 
+        //da das als Trigger fungiert hat und nun nicht mehr benötigt wird
         processCommandAusführen(recievedMessage, splitCommand);
     }
 
     else if (recievedMessage.content.startsWith("!") /*|| recievedMessage.content.startsWith()*/) { 
                                                     //ODER EBEN WENN @BAT DIREKT ANGESPROCHEN WURDE
         let fullCommand = recievedMessage.content.substr(1) 
-        //zusätzlich wird hier der erste Charakter, das '!', aus dem String entfernt, da dieser als Trigger fungiert hat und nun nicht mehr benötigt wird
+        //zusätzlich wird hier der erste Charakter, das '!', aus dem String entfernt, 
+        //da dieser als Trigger fungiert hat und nun nicht mehr benötigt wird
         let splitCommand = fullCommand.split(" ")
         processCommandAusführen(recievedMessage, splitCommand);
     }
@@ -211,7 +217,8 @@ function processCommandAusführen(recievedMessage, splitCommand) {
         inhaltCommand(arguments, recievedMessage)
     }
     else {
-        recievedMessage.channel.send("Error 0815, Befehl nicht gefunden. 💩\n**'!Hilfe'** oder **'!Befehle'** für Hilfe!")
+        recievedMessage.channel.send("Error 0815, Befehl nicht gefunden. "
+                                    + "💩\n**'!Hilfe'** oder **'!Befehle'** für Hilfe!")
     }
 }
 
@@ -244,9 +251,11 @@ function vertiefungCommand(arguments, recievedMessage) {
     if (arguments == 0) {
         antwort += "Möchtest du wissen, welchem Vertiefungsbereich ein bestimmtes Modul zugeordnet ist? Dann"
                 + " schreibe **Vertiefungsbereich Modulname**.\nMöchtest du eine Auflistung aller Vertiefungsmodule "
-                + "eines bestimmten Vertiefungsbereichs? Dann schreibe **Vertiefungsbereich WI/Sozök/BWL/VWL/interdisziplinär**";
+                + "eines bestimmten Vertiefungsbereichs? Dann schreibe "
+                + "**Vertiefungsbereich WI/Sozök/BWL/VWL/interdisziplinär**";
     } else if (arguments.length > 1) {
-        antwort += "Bitte immer nur ein Befehl auf einmal! **Vertiefungsbereich Modulname/WI/Sozök/BWL/VWL/interdisziplinär**";
+        antwort += "Bitte immer nur ein Befehl auf einmal! "
+                + "**Vertiefungsbereich Modulname/WI/Sozök/BWL/VWL/interdisziplinär**";
     } else {
         var sachen = ["wi", "wirtschaftsinformatik", "vwl", "bwl", "inter", "interdisziplinär", "sozök", "sozialökonomie"];
         mo = false;
@@ -266,7 +275,8 @@ function vertiefungCommand(arguments, recievedMessage) {
             for (i = 0; i < alleModule.length; i++) {
                 if (alleModule[i].modulbezeichnung.toLowerCase() == arguments[0].toLowerCase()) {
                     mo = true;
-                    antwort += "Das Modul gehört zum Vertiefungsbereich: " + alleModule[i].verwendbarkeit_Vertiefungsbereich.toString();
+                    antwort += "Das Modul gehört zum Vertiefungsbereich: " 
+                            + alleModule[i].verwendbarkeit_Vertiefungsbereich.toString();
                 }
             }
         }
@@ -346,8 +356,8 @@ function profCommand(arguments, recievedMessage) {
         }
         if (!mo) {
             antwort += "Ich konnte leider weder ein Modul, noch einen Professor mit diesem Namen finden. Bitte beachte,"
-                    + " dass Modulnamen, die aus mehreren Worten bestehen mit einem _ verknüpft werden müssen. ZB.:"
-                    + " **Managing_Technological_Change**"
+                    + " dass Modulnamen, die aus mehreren Worten bestehen mit einem _ verknüpft werden müssen. ZB.: "
+                    + "**Managing_Technological_Change**"
         }
     }
     recievedMessage.channel.send(antwort);
@@ -356,9 +366,9 @@ function profCommand(arguments, recievedMessage) {
 function semesterCommand(arguments, recievedMessage) {
     var antwort = recievedMessage.author.toString() + ":\n";
     if (arguments == 0) {
-        antwort += "Möchtest du wissen, in welchem Regelstudiensemester ein bestimmtes Modul eingeplant ist? Dann"
-                + " schreibe **Semester Modulname**.\nMöchtest du eine Auflistung aller Module, die in einem bestimmten "
-                + "Regelstudiensemester eingeplant sind? Dann schreibe **Semester Zahl(1-6)**.";
+        antwort += "Möchtest du wissen, in welchem Regelstudiensemester ein bestimmtes Modul eingeplant ist? "
+                + "Dann schreibe **Semester Modulname**.\nMöchtest du eine Auflistung aller Module, die in einem "
+                + "bestimmten Regelstudiensemester eingeplant sind? Dann schreibe **Semester Zahl(1-6)**.";
     } else {
         if (!isNaN(Number(arguments[0]))) {
             if (arguments[0] < 1 || arguments[0] > 5) {
@@ -372,8 +382,8 @@ function semesterCommand(arguments, recievedMessage) {
                     }
                 }
                 if (!mo) {
-                    antwort += "Da ist wohl etwas schief gelaufen! Die Semesterzahl muss eine **Ganzzahl** "
-                            + "sein und im Bereich von **1-6** liegen."
+                    antwort += "Da ist wohl etwas schief gelaufen! Die Semesterzahl muss eine **Ganzzahl** sein und "
+                            + "im Bereich von **1-6** liegen."
                 }
             }
         } else {
@@ -397,8 +407,8 @@ function semesterCommand(arguments, recievedMessage) {
 function voraussetzungenCommand(arguments, recievedMessage) {
     var antwort = recievedMessage.author.toString() + ":\n";
     if (arguments == 0) {
-        antwort += "Zu welchem Modul möchtest du denn die Voraussetzungen wissen? Schreibe **Voraussetzungen Modulname**. "
-                + "Bitte beachte, dass Modulnamen, die aus mehreren Worten bestehen mit einem _ verknüpft werden müssen. "
+        antwort += "Zu welchem Modul möchtest du denn die Voraussetzungen wissen? Schreibe **Voraussetzungen Modulname**."
+                + " Bitte beachte, dass Modulnamen, die aus mehreren Worten bestehen mit einem _ verknüpft werden müssen. "
                 + "ZB.: **Managing_Technological_Change**\nMöchtest du eine Auflistung aller Module, für die es keine "
                 + "Voraussetzungen braucht, dann schreibe **Voraussetzungen Keine**";
     } else if (arguments[0].toLowerCase() != "keine") {
@@ -428,8 +438,8 @@ function voraussetzungenCommand(arguments, recievedMessage) {
 function interestCommand(arguments, recievedMessage) {  
     var antwort = recievedMessage.author.toString() + ":\n";
     if (arguments == 0) {
-        antwort += "Gebe bitte nach **Interessensbereich** einfach eins oder mehrere Schlagwörter ein und ich "
-                + "suche dir Module heraus, die diesem Interessensbereich entsprechen!\n**Interessensbereich "
+        antwort += "Gebe bitte nach **Interessensbereich** einfach eins oder mehrere Schlagwörter ein und ich suche dir "
+                + "Module heraus, die diesem Interessensbereich entsprechen!\n**Interessensbereich "
                 + "Schlagwort1 ... SchlagwortN**";
     } else {
         antwort += "Module, zu denen diese Schlagworte passen, sind:\n"
@@ -453,11 +463,12 @@ function interestCommand(arguments, recievedMessage) {
 function pruefungsleistungenCommand(arguments, recievedMessage) {
     var antwort = recievedMessage.author.toString() + ":\n";
     if (arguments == 0) {
-        antwort += "Möchtest du zu einem bestimmten Modul wissen, welche Prüfungsleistungen du dafür belegen musst? "
-                + "Dann schreibe **Prüfungsleistungen Modulname**. Bitte beachte, dass Modulnamen, die aus "
-                + "mehreren Worten bestehen mit einem _ verknüpft werden müssen. ZB.: **Managing_Technological_Change**\n "
-                + "Bevorzugst du eine bestimmte Prüfungleistung und möchtest eine Liste aller Module mit einer derartigen "
-                + "Prüfungsleistung haben? Dann schreibe **Prüfungsleistung Hausarbeit/Vortrag/Klausur**";
+        antwort += "Möchtest du zu einem bestimmten Modul wissen, welche Prüfungsleistungen du dafür "
+                + "belegen musst? Dann schreibe **Prüfungsleistungen Modulname**. Bitte beachte, dass "
+                + "Modulnamen, die aus mehreren Worten bestehen mit einem _ verknüpft werden müssen. ZB.: "
+                + "**Managing_Technological_Change**\n Bevorzugst du eine bestimmte Prüfungleistung und möchtest "
+                + "eine Liste aller Module mit einer derartigen Prüfungsleistung haben? Dann schreibe "
+                + "**Prüfungsleistung Hausarbeit/Vortrag/Klausur**";
     } else if (arguments.length > 1) {
         antwort += "Bitte immer nur ein Befehl auf einmal. **Prüfungsleistungen Modulname/Hausarbeit/Vortrag/Klausur** "
                 + "Bitte beachte, dass Modulnamen, die aus mehreren Worten bestehen mit einem _ verknüpft werden müssen. "
@@ -491,8 +502,8 @@ function arbeitsaufwandCommand(arguments, recievedMessage) {
     var antwort = recievedMessage.author.toString() + ":\n";
     if (arguments == 0) {
         antwort += "Zu welchem Modul wüsstest du denn gerne den Arbeitsaufwand? Schreibe **Arbeitsaufwand Modulname**.\n"
-                + "Möchtest du deinen Arbeitsaufwand möglichst gering halten und nach modulen mit einer "
-                + "Obergrenze an Arbeitsstunden suchen? Dann schreibe **Arbeitsaufwand Stunden(Zahl)**";
+                + "Möchtest du deinen Arbeitsaufwand möglichst gering halten und nach modulen mit einer Obergrenze "
+                + "an Arbeitsstunden suchen? Dann schreibe **Arbeitsaufwand Stunden(Zahl)**";
     } else {
         if (arguments.length > 1) {
             antwort += "Bitte immer nur ein Befehl auf einmal. **Arbeitsaufwand Modulname/Zahl**"
@@ -530,17 +541,16 @@ function arbeitsaufwandCommand(arguments, recievedMessage) {
 function dauerCommand(arguments, recievedMessage) {
     var antwort = recievedMessage.author.toString() + ":\n";
     if (arguments == 0) {
-        antwort += "Möchtest du wissen, welche Dauer ein Modul hat? Dann schreibe **Dauer Modulname** "
-                + "Bitte beachte, dass Modulnamen, die aus mehreren Worten bestehen mit einem _ verknüpft "
-                + "werden müssen. ZB.: **Managing_Technological_Change**\n Oder möchtest du eine Liste aller "
-                + "Module haben, die in Blockseminaren gehalten werden? Dann schreibe **Dauer Blockseminar**.\n"
-                + "Wenn du eine Liste aller Module haben willst, die über eine bestimmte Anzahl Semester dauern, "
-                + "dann schreibe **Dauer Zahl**";
+        antwort += "Möchtest du wissen, welche Dauer ein Modul hat? Dann schreibe **Dauer Modulname** Bitte "
+                + "beachte, dass Modulnamen, die aus mehreren Worten bestehen mit einem _ verknüpft werden müssen. "
+                + "ZB.: **Managing_Technological_Change**\n Oder möchtest du eine Liste aller Module haben, die in "
+                + "Blockseminaren gehalten werden? Dann schreibe **Dauer Blockseminar**.\nWenn du eine Liste aller Module "
+                + "haben willst, die über eine bestimmte Anzahl Semester dauern, dann schreibe **Dauer Zahl**";
     } else {
         if (arguments.length > 1) {
-            antwort += "Bitte immer nur ein Befehl auf einmal. **Dauer Modulname/Blockseminar/Zahl** Bitte beachte, "
-            + "dass Modulnamen, die aus mehreren Worten bestehen mit einem _ verknüpft werden müssen. ZB.: "
-            + "**Managing_Technological_Change**"
+            antwort += "Bitte immer nur ein Befehl auf einmal. **Dauer Modulname/Blockseminar/Zahl** Bitte beachte, dass "
+                    + "Modulnamen, die aus mehreren Worten bestehen mit einem _ verknüpft werden müssen. ZB.: "
+                    + "**Managing_Technological_Change**"
         } else {
             if (!isNaN(Number(arguments[0]))) { //wenn es eine Nummer ist
                 antwort += "Module mit einer Dauer von " + arguments[0] + " Semestern sind:\n";
@@ -575,9 +585,9 @@ function dauerCommand(arguments, recievedMessage) {
                     }
                 }
                 if (!mo) {
-                    antwort += "Leider finde ich kein Modul mit diesem Namen. Probiere es doch nochmal!"
-                    + " **Dauer Modulname/Blockseminar/Zahl** Bitte beachte, dass Modulnamen, die aus mehreren "
-                    + "Worten bestehen mit einem _ verknüpft werden müssen. ZB.: **Managing_Technological_Change**"
+                    antwort += "Leider finde ich kein Modul mit diesem Namen. Probiere es doch nochmal! "
+                            + "**Dauer Modulname/Blockseminar/Zahl** Bitte beachte, dass Modulnamen, die aus mehreren"
+                            + " Worten bestehen mit einem _ verknüpft werden müssen. ZB.: **Managing_Technological_Change**"
                 }
             }
         }
@@ -589,10 +599,9 @@ function dauerCommand(arguments, recievedMessage) {
 function spracheCommand(arguments, recievedMessage) {
     var antwort = recievedMessage.author.toString() + ":\n";
     if (arguments == 0) {
-        antwort += "Möchtest du zu einem bestimmten Modul wissen, was dessen Vorlesungssprache ist? Dann "
-                + "schtreibe **Sprache Modulname**\nMöchtest du hingegen eine Liste aller Module bekommen, "
-                + "die in einer bestimmten Sprache gehalten werden (zum Beispiel englisch), "
-                + "dann schreibe **Sprache englisch**";
+        antwort += "Möchtest du zu einem bestimmten Modul wissen, was dessen Vorlesungssprache ist? Dann schtreibe "
+                + "**Sprache Modulname**\nMöchtest du hingegen eine Liste aller Module bekommen, die in einer "
+                + "bestimmten Sprache gehalten werden (zum Beispiel englisch), dann schreibe **Sprache englisch**";
     } else if (arguments.length > 1) {
         antwort += "Bitte immer nur ein Modul pder eine Sprache auf einmal!"
     } else {
@@ -619,8 +628,8 @@ function spracheCommand(arguments, recievedMessage) {
                     antwort += "Es gibt keine Module, die in dieser Sprache gehalten werden."
                 }
             } else {
-                antwort += "Leider konnte ich kein Modul mit diesem Namen oder kein Modul, das "
-                        + "in dieser Sprache gehalten wird finden."
+                antwort += "Leider konnte ich kein Modul mit diesem Namen oder kein Modul, das in dieser "
+                        + "Sprache gehalten wird finden."
             }
         }
     }
@@ -632,8 +641,8 @@ function schnittCommand(arguments, recievedMessage) {
     if (arguments == 0) {
         antwort += "Möchtest du die Durchschnittsnote eines bestimmten Moduls wissen? Dann schreibe "
                 + "**Schnitt Modulname** Bitte beachte, dass Modulnamen, die aus mehreren Worten bestehen "
-                + "mit einem _ verknüpft werden müssen. ZB.: **Managing_Technological_Change**\nMöchtest "
-                + "du alle Module, die einen bestimmten Schnitt haben? Beispielsweise einen Schnitt besser als 2.0? "
+                + "mit einem _ verknüpft werden müssen. ZB.: **Managing_Technological_Change**\nMöchtest du alle Module, "
+                + "die einen bestimmten Schnitt haben? Beispielsweise einen Schnitt besser als 2.0? "
                 + "Dann schreibe **Schnitt 2.0**";
     } else {
         if (!isNaN(Number(arguments[0]))) {
@@ -662,8 +671,8 @@ function schnittCommand(arguments, recievedMessage) {
             }
             if (!mod) {
                 antwort += "Das Modul habe ich leider nicht gefunden. Probiere es doch nochmal!\n"
-                + "**Schnitt Modulname/Zahl** Bitte beachte, dass Modulnamen, die aus mehreren Worten "
-                + "bestehen mit einem _ verknüpft werden müssen. ZB.: **Managing_Technological_Change**"
+                        + "**Schnitt Modulname/Zahl** Bitte beachte, dass Modulnamen, die aus mehreren "
+                        + "Worten bestehen mit einem _ verknüpft werden müssen. ZB.: **Managing_Technological_Change**"
             }
         }
 
@@ -676,8 +685,8 @@ function studonCommand(arguments, recievedMessage) {
     var antwort = recievedMessage.author.toString() + ":\n";
     if (arguments == 0) {
         antwort += "Zu welchem Modul möchtest du denn den StudOn Link bekommen?\nSchreibe **StudOn Modulname** "
-        + "Bitte beachte, dass Modulnamen, die aus mehreren Worten bestehen mit einem _ verknüpft werden müssen. "
-        + "ZB.: **Managing_Technological_Change**";
+                + "Bitte beachte, dass Modulnamen, die aus mehreren Worten bestehen mit einem _ verknüpft werden "
+                + "müssen. ZB.: **Managing_Technological_Change**";
     } else {
         var mo = false;
         for (i = 0; i < alleModule.length; i++) {
@@ -689,9 +698,9 @@ function studonCommand(arguments, recievedMessage) {
             }
         }
         if (!mo) {
-            antwort += "Mindestens eines dieser Module konnte ich leider nicht finden. Probiere es "
-            + "doch nochmal! **StudOn Modulname** Bitte beachte, dass Modulnamen, die aus mehreren "
-            + "Worten bestehen mit einem _ verknüpft werden müssen. ZB.: **Managing_Technological_Change**";
+            antwort += "Mindestens eines dieser Module konnte ich leider nicht finden. Probiere es doch nochmal! "
+                    + "**StudOn Modulname** Bitte beachte, dass Modulnamen, die aus mehreren Worten bestehen mit "
+                    + "einem _ verknüpft werden müssen. ZB.: **Managing_Technological_Change**";
         }
     }
     recievedMessage.channel.send(antwort);
@@ -701,9 +710,9 @@ function studonCommand(arguments, recievedMessage) {
 function anmeldungCommand(arguments, recievedMessage) {
     var antwort = recievedMessage.author.toString() + ":\n";
     if (arguments == 0) {
-        antwort += "Zu welchem Modul möchtest du denn den Anmeldungs Link bekommen?\nSchreibe "
-        + "**Anmeldung Modulname** Bitte beachte, dass Modulnamen, die aus mehreren Worten bestehen "
-        + "mit einem _ verknüpft werden müssen. ZB.: **Managing_Technological_Change**";
+        antwort += "Zu welchem Modul möchtest du denn den Anmeldungs Link bekommen?\nSchreibe **Anmeldung Modulname** "
+                + "Bitte beachte, dass Modulnamen, die aus mehreren Worten bestehen mit einem _ verknüpft werden müssen. "
+                + "ZB.: **Managing_Technological_Change**";
     } else {
         var mo = false;
         for (i = 0; i < alleModule.length; i++) {
@@ -715,9 +724,9 @@ function anmeldungCommand(arguments, recievedMessage) {
             }
         }
         if (!mo) {
-            antwort += "Mindestens eines dieser Module konnte ich leider nicht finden. Probiere es doch "
-            + "nochmal! **Anmeldung Modulname** Bitte beachte, dass Modulnamen, die aus mehreren Worten "
-            + "bestehen mit einem _ verknüpft werden müssen. ZB.: **Managing_Technological_Change**";
+            antwort += "Mindestens eines dieser Module konnte ich leider nicht finden. Probiere es doch nochmal! "
+                    + "**Anmeldung Modulname** Bitte beachte, dass Modulnamen, die aus mehreren Worten bestehen mit "
+                    + "einem _ verknüpft werden müssen. ZB.: **Managing_Technological_Change**";
         }
     }
     recievedMessage.channel.send(antwort);
@@ -727,9 +736,9 @@ function anmeldungCommand(arguments, recievedMessage) {
 function plaetzeCommand(arguments, recievedMessage) {
     var antwort = recievedMessage.author.toString() + ":\n";
     if (arguments == 0) {
-        antwort += "Zu welchem Modul möchtest du denn die Anzahl der zu vergebenden Plätze wissen? \n "
-        + "Schreibe: **Plätze Modulname** Bitte beachte, dass Modulnamen, die aus mehreren Worten bestehen "
-        + "mit einem _ verknüpft werden müssen. ZB.: **Managing_Technological_Change**";
+        antwort += "Zu welchem Modul möchtest du denn die Anzahl der zu vergebenden Plätze wissen? \n Schreibe: "
+                + "**Plätze Modulname** Bitte beachte, dass Modulnamen, die aus mehreren Worten bestehen mit einem"
+                + " _ verknüpft werden müssen. ZB.: **Managing_Technological_Change**";
     } else {
         var mo = false;
         for (i = 0; i < alleModule.length; i++) {
@@ -742,8 +751,8 @@ function plaetzeCommand(arguments, recievedMessage) {
         }
         if (!mo) {
             antwort += "Mindestens eines dieser Module konnte ich leider nicht finden. Probiere es doch nochmal! "
-            + "**Plätze Modulname** Bitte beachte, dass Modulnamen, die aus mehreren Worten bestehen mit einem _ "
-            + "verknüpft werden müssen. ZB.: **Managing_Technological_Change**";
+                    + "**Plätze Modulname** Bitte beachte, dass Modulnamen, die aus mehreren Worten bestehen mit "
+                    + "einem _ verknüpft werden müssen. ZB.: **Managing_Technological_Change**";
         }
     }
     recievedMessage.channel.send(antwort);
@@ -756,15 +765,15 @@ function ratingCommand(arguments, recievedMessage) { //hier noch nach modjulen m
     var mod = false;
     if (arguments == 0) {
         antwort += "Möchtest du wissen, wie ein Modul von deinen Studienkollegen gerated wurde? Dann schreibe "
-        + "**Rating Modulname**\nOder willst du ein Modul bewerten? Dann schreibe **Rating Modulname Zahl(1-5)** "
-        + "Bitte beachte, dass Modulnamen, die aus mehreren Worten bestehen mit einem _ verknüpft werden müssen. ZB.: "
-        + "**Managing_Technological_Change**\nIch kann dir auch eine Auflistung aller Module mit einem bestimmten Rating"
-        + "(oder besser) geben. Schreibe dazu **Rating Zahl**";
+                + "**Rating Modulname**\nOder willst du ein Modul bewerten? Dann schreibe **Rating Modulname Zahl(1-5)** "
+                + "Bitte beachte, dass Modulnamen, die aus mehreren Worten bestehen mit einem _ verknüpft werden müssen. "
+                + "ZB.: **Managing_Technological_Change**\nIch kann dir auch eine Auflistung aller Module mit einem "
+                + "bestimmten Rating(oder besser) geben. Schreibe dazu **Rating Zahl**";
     } else if (arguments.length == 1) {
         if (!isNaN(Number(arguments[0]))) {
             if (arguments[0] > 5 || arguments[0] < 1) {
-                recievedMessage.channel.send(recievedMessage.author.toString() + 
-                                            "\nRatings müssen im Bereich zwischen 1 und 5 sein.");
+                recievedMessage.channel.send(recievedMessage.author.toString()
+                                             + "\nRatings müssen im Bereich zwischen 1 und 5 sein.");
                 return;
             }
             antwort += "Module mit einem Rating von " + arguments[0].toString() + " oder besser sind:\n";
@@ -798,7 +807,7 @@ function ratingCommand(arguments, recievedMessage) { //hier noch nach modjulen m
                 recievedMessage.react("👍");
                 mod = true;
                 alleModule[i].rating[0] = ((alleModule[i].rating[0] * alleModule[i].rating[1]) 
-                                            + arguments[1] * 1) / (alleModule[i].rating[1] + 1);
+                                        + arguments[1] * 1) / (alleModule[i].rating[1] + 1);
                 alleModule[i].rating[1] += 1;
             }
         }
@@ -815,10 +824,9 @@ function kommentwCommand(arguments, recievedMessage) {
     var antwort = recievedMessage.author.toString() + ":\n";
     var modulbekanntt = false;
     if (arguments == 0) {
-        antwort += "Zu welchem Modul möchtest du denn Kommentare schreiben?\nSchreibe "
-                + "**Kommentar Modulname Kommentar** Bitte beachte, dass Modulnamen, die "
-                + "aus mehreren Worten bestehen mit einem _ verknüpft werden müssen. ZB.: "
-                + "**Managing_Technological_Change**";
+        antwort += "Zu welchem Modul möchtest du denn Kommentare schreiben?\nSchreibe **Kommentar Modulname Kommentar** "
+                + "Bitte beachte, dass Modulnamen, die aus mehreren Worten bestehen mit einem _ verknüpft werden müssen. "
+                + "ZB.: **Managing_Technological_Change**";
         recievedMessage.channel.send(antwort);
         return;
     } else if (arguments.length > 1) {
@@ -836,9 +844,9 @@ function kommentwCommand(arguments, recievedMessage) {
         return;
     }
     if (!modulbekanntt) {
-        antwort += "Dieses Modul kenne ich leider nicht. Probiere es doch nochmal!\n "
-                + "**Kommentar Modulname Kommentar** Bitte beachte, dass Modulnamen, die aus mehreren "
-                + "Worten bestehen mit einem _ verknüpft werden müssen. ZB.: **Managing_Technological_Change**";
+        antwort += "Dieses Modul kenne ich leider nicht. Probiere es doch nochmal!\n **Kommentar Modulname Kommentar** "
+                + "Bitte beachte, dass Modulnamen, die aus mehreren Worten bestehen mit einem _ verknüpft werden müssen. "
+                + "ZB.: **Managing_Technological_Change**";
     } else {
         antwort += "Dein Kommentar wurde erfolgreich eingetragen! Vielen Dank! 💖"
         recievedMessage.react("👍");
@@ -851,9 +859,9 @@ function kommentCommand(arguments, recievedMessage) {
     var antwort = recievedMessage.author.toString() + ":\n";
     var modulbekanntz = false;
     if (arguments == 0) {
-        antwort += "Zu welchem Modul möchtest du denn Kommentare sehen?\nSchreibe"
-                + " **Kommentare Modulname** Bitte beachte, dass Modulnamen, die aus mehreren Worten "
-                + "bestehen mit einem _ verknüpft werden müssen. ZB.: **Managing_Technological_Change**";
+        antwort += "Zu welchem Modul möchtest du denn Kommentare sehen?\nSchreibe **Kommentare Modulname** Bitte beachte"
+                + ", dass Modulnamen, die aus mehreren Worten bestehen mit einem _ verknüpft werden müssen. ZB.: "
+                + "**Managing_Technological_Change**";
         recievedMessage.channel.send(antwort);
         return;
     } else {
@@ -866,8 +874,8 @@ function kommentCommand(arguments, recievedMessage) {
     }
     if (!modulbekanntz) {
         antwort += "Dieses Modul kenne ich leider nicht. Probiere es doch nochmal!\n **Kommentare Modulname** "
-                + "Bitte beachte, dass Modulnamen, die aus mehreren Worten bestehen mit einem _ "
-                + "verknüpft werden müssen. ZB.: **Managing_Technological_Change**";
+                + "Bitte beachte, dass Modulnamen, die aus mehreren Worten bestehen mit einem _ verknüpft werden müssen. "
+                + "ZB.: **Managing_Technological_Change**";
     }
     recievedMessage.channel.send(antwort);
 }
@@ -918,10 +926,9 @@ function befehleCommand(arguments, recievedMessage) {
         + "\n- Turnus"
         + "\n- Vertiefungsbereich"
         + "\n- Voraussetzungen";
-    antwort += "\nDamit ich weiß, dass du deine Befehle an mich richtest kannst du mich entweder "
-            + "mit **@Alfred** an mich wenden, oder den Befehl mit einem **!** beginnen.\nBitte beachte,"
-            + " dass Modulnamen, die aus mehreren Worten bestehen mit einem _ verknüpft werden müssen. "
-            + "ZB.: **Managing_Technological_Change**"
+    antwort += "\nDamit ich weiß, dass du deine Befehle an mich richtest kannst du mich entweder mit **@Alfred** an "
+            + "mich wenden, oder den Befehl mit einem **!** beginnen.\nBitte beachte, dass Modulnamen, die aus mehreren "
+            + "Worten bestehen mit einem _ verknüpft werden müssen. ZB.: **Managing_Technological_Change**"
     recievedMessage.channel.send(antwort);
 
 }
@@ -930,9 +937,9 @@ function befehleCommand(arguments, recievedMessage) {
 function ectsCommand(arguments, recievedMessage) {
     var antwort = recievedMessage.author.toString() + ":\n";
     if (arguments == 0) {
-        antwort += "Möchtest du zu einem bestimmten Modul die verdienten ECTS wissen? Dann schreibe: "
-                + "**!ECTS Modulname**.\nMöchtest du hingegen alle Module des Studiengangs Wiwi wissen, die eine "
-                + "bestimmte Anzahl an ECTS bringen, dann schreibe: **!ECTS Zahl**"
+        antwort += "Möchtest du zu einem bestimmten Modul die verdienten ECTS wissen? Dann schreibe: **!ECTS Modulname**."
+                + "\nMöchtest du hingegen alle Module des Studiengangs Wiwi wissen, die eine bestimmte Anzahl an ECTS "
+                + "bringen, dann schreibe: **!ECTS Zahl**"
     } else {
         if (arguments[0] == '2,5' || arguments[0] == '2.5' || arguments[0] == '5' 
             || arguments[0] == '10' || arguments[0] == '15') {
@@ -944,8 +951,8 @@ function ectsCommand(arguments, recievedMessage) {
                     zaehler++;
                 }
             }
-            antwort += "Es gibt " + zaehler.toString() + " Module mit " + arguments[0].toString() + " ECTS:\n" 
-                    + zwischenAntwort;
+            antwort += "Es gibt " + zaehler.toString() + " Module mit " + arguments[0].toString() 
+                    + " ECTS:\n" + zwischenAntwort;
         } else {
             var modulbekannt = false;
             for (var i = 0; i < alleModule.length; i++) {
@@ -955,8 +962,7 @@ function ectsCommand(arguments, recievedMessage) {
                 }
             }
             if (!modulbekannt) {
-                antwort += "Dieses Modul konnte ich leider nicht finden oder es gibt keine Module "
-                        + "mit dieser Anzahl ECTS. ☠"
+                antwort += "Dieses Modul konnte ich leider nicht finden oder es gibt keine Module mit dieser Anzahl ECTS. ☠"
             }
         }
     }
@@ -966,9 +972,9 @@ function ectsCommand(arguments, recievedMessage) {
 function turnusCommand(arguments, recievedMessage) {
     var antwort = recievedMessage.author.toString() + ":\n"
     if (arguments == 0) {
-        antwort += "Falls du wissen möchtest, in welchem Turnus ein bestimmtes Modul angeboten wird, "
-                + "dann schreibe **Turnus Modulname**.\n Möchtest du hingegen eine Auflistung aller Module, "
-                + "die in einem bestimmten Turnus angeboten werden, dann schreibe **Turnus Sommersemester/Wintersemester**"
+        antwort += "Falls du wissen möchtest, in welchem Turnus ein bestimmtes Modul angeboten wird, dann schreibe "
+                + "**Turnus Modulname**.\n Möchtest du hingegen eine Auflistung aller Module, die in einem bestimmten "
+                + "Turnus angeboten werden, dann schreibe **Turnus Sommersemester/Wintersemester**"
     } else if (arguments.includes("sommersemester") || arguments.includes("Sommersemester") 
                 || arguments.includes("SS") || arguments.includes("ss")) {
         antwort += "Die folgenden Module finden im Sommersemester statt:\n"
@@ -1006,9 +1012,8 @@ function turnusCommand(arguments, recievedMessage) {
 //----------------------------------------Module--------------------------------------
 
 class WisoModul {
-    constructor(modulbezeichnung, ruw, lehrveranstaltungen, lehrende, modulverantwortlicher, inhalt, 
-        lernziele, voraussetzungen, semesterzahl,
-        verwendbarkeit_Vertiefungsbereich, pruefungsleistungen, turnus,
+    constructor(modulbezeichnung, ruw, lehrveranstaltungen, lehrende, modulverantwortlicher, inhalt, lernziele, 
+        voraussetzungen, semesterzahl, verwendbarkeit_Vertiefungsbereich, pruefungsleistungen, turnus,
         arbeitsaufwand, dauer, sprache, plaetze, studon, anmeldung, schnitt, ects, rating, kommentare) {
         this.modulbezeichnung = modulbezeichnung;
         this.ruw = ruw;
@@ -1087,8 +1092,7 @@ class WisoModul {
         if (this.verwendbarkeit_Vertiefungsbereich == 0) {
             a += "Nicht verwendbar als Vertiefungsmodul.";
         } else {
-            a += "Verwendbar als Vertiefungsmodul im Bereich: " 
-                + this.verwendbarkeit_Vertiefungsbereich.toString() + ".";
+            a += "Verwendbar als Vertiefungsmodul im Bereich: " + this.verwendbarkeit_Vertiefungsbereich.toString() + ".";
         }
         return a;
     }
@@ -1097,21 +1101,20 @@ class WisoModul {
     }
     selfTurnus() {
         if (this.turnus.includes("ws") && this.turnus.includes("ss")) {
-            return this.modulbezeichnung 
-                    + " kann sowohl im Sommersemester, als auch im Wintersemester belegt werden.";
-        }
-        if (this.turnus.includes("ws")) {
+            return this.modulbezeichnung + " kann sowohl im Sommersemester, als auch im Wintersemester belegt werden.";
+        } if (this.turnus.includes("ws")) {
             return this.modulbezeichnung + " kann nur im Wintersemester belegt werden."; 
-        }//beide können es hier nicht mehr sein
-        else {
+            //beide können es hier nicht mehr sein
+        } else {
             return this.modulbezeichnung + " kann nur im Sommersemester belegt werden."; 
-        }//kann hier nur noch ss sein
+            //kann hier nur noch ss sein
+        }
     }
     selfArbeitsaufwand() {
         var a = 0;
         if (this.arbeitsaufwand.length > 1) a = this.arbeitsaufwand[1];
         return this.modulbezeichnung + " hat einen Arbeitsaufwand von " + this.arbeitsaufwand[0] 
-            + " Stunden Präsenzzeit und " + a.toString() + " Stunden Eigenstudium.";
+                + " Stunden Präsenzzeit und " + a.toString() + " Stunden Eigenstudium.";
     }
     selfDauer() {
         var a = "";
@@ -1169,6 +1172,7 @@ class WisoModul {
     }
 }
 
+
 let unternehmensplanspielUNSplit = "Folgende betriebswirtschaftliche Themenkomplexe werden mit Hilfe einer computergestützten Simulation behandelt: \n-- Administration: Denken in betriebswirtschaftlichen Alternativen, Marktsituationen und Marktergebnisse richtig interpretieren und in zielorientierte Entscheidungen umsetzen \n-- Beschaffung und Lagerhaltung: Berechnung optimaler Bestellmengen \n-- Produktion: Investitions- und Desinvestitionsentscheidungen, Auslastungsplanung, Personalplanung \n-- Vertrieb: Analyse der Markt- und Wettbewerbssituation, Planung der Marketingausgaben, Analyse der Marktforschungsberichte, Festlegung der Preispolitik \n-- Finanzen: Finanzplanung, Gewinn- und Verlustrechnung, Bilanzanalyse \n-- Studierende lösen in Gruppenarbeiten ein reales Unternehmensproblem";
 unternehmensplanspiel = new WisoModul("Unternehmensplanspiel", 2030, "V: Unternehmensplanspiel (4SWS)", "Amberg", "Amberg", unternehmensplanspielUNSplit, "Die Studierenden lernen \n-- komplexe betriebswirtschaftliche Zusammenhänge spielerisch zu erkennen und zu analysieren, \n-- Marktsituationen und Marktergebnisse richtig zu interpretieren und in zielorientierte Entscheidungen umzusetzen, \n-- Strategien an Ziele zu koppeln und in Entscheidungen umzusetzen, \n-- Zusammenhänge zwischen Entscheidungsbereichen zu erkennen und Entscheidungen zu koordinieren, \n-- Teamarbeit und Organisation zu verbessern.", ["Keine"], 1, [], ["klausur", "vortrag"], ["ws", "ss"], [30, 120], [3, "d"], ["deutsch"], -1, "-", "-", 1.93, 5, [2.5, 1], ["gut zum Leute kennenlernen im ersten Semester", "in 3 Tagen geschafft, geht schon"]);
 alleModule.push(unternehmensplanspiel);
@@ -1202,4 +1206,4 @@ alleModule.push(businessplanseminar);
 
 //paste bots secret token as parameter to login: client.login("token")
 //paste token as string to client.login function
-client.login("")
+client.login("XXXX")
