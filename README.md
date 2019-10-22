@@ -1,14 +1,11 @@
-# Chatbot Alfred zur Unterstützung von Studierenden bei ihrer Studiumsplanung und Modulauswahl im Studienfach Wirtschaftswissenschaften
+# Code zur Bachelorarbeit:
+## Implementierung und Evaluation eines Chatbots zur Unterstützung von Studierenden bei ihrer Studiumsplanung und Modulauswahl im Studienfach Wirtschaftswissenschaften
 
-One Paragraph of project description goes here
-
-## Getting Started
-
-Diese Anleitung soll These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+In der Bachelorarbeit wird die Herangehensweise an Konzeption und Implementierung eines Chatbots untersucht. Der Chatbot soll die Aufgaben eines Modulhandbuchs erfüllen und Studierenden bei der Modulauswahl helfen. Der Bot kann dem User anhand ausgewählter Kriterien eine Auswahl passender Module erstellen. Der Mehrwert des Chatbots resultiert aus der Unkompliziertheit und der Zeitersparnis für den User. 
 
 ### Voraussetzungen
 
-Voraussetzungen zur Nutzung des Chatbots
+Voraussetzungen zum Deployment des Chatbots:
 
 ```
 Visual Studio Code
@@ -17,63 +14,38 @@ Visual Studio Code
 Discord Account
 ```
 
-## Deployment
+### Erstellen und Deployment eines Bots
 
-
-### Generation eines Token
-
-A step by step series of examples that tell you how to get a development env running
-
-Say what the step will be
-
+Um den Chatbot zum Laufen zu bekommen muss zuerst eine Bot Applikation eingerichtet und dieser ein Bot hinzugefügt werden. Dies erfolgt über die Weboberfläche des Discord Developer Portals, eine detailierte Erklärung findet sich hier: 
 ```
-Give the example
+https://discordjs.guide/preparations/setting-up-a-bot-application.html
 ```
+Nach Hinzufügen des Bots wird für diesen automatisch ein geheimer Token generiert, welcher im späteren Verlauf noch genutzt wird.
 
-And repeat
+### Anpassung des Quellcodes
 
+Der Quellcode muss an den folgenden Stellen angepasst werden:
+
+#### Zeile 21: let generalChannel = client.channels.get("XXXX"). 
+
+Statt der XXXX muss die ID des generellen Servers eingesetzt werden.
+Diese kann aus der URL gelesen werden, es ist die letzte mehrstellige Zahl nach einem /.
+     
+Oder durch die Ausführung des folgenden Codeabschnitts im Bereich des ready-Events auf der Konsole ausgegeben werden. Es ist die ID des general text:
+client.guids.forEach((guild => {
+   guild.channels.forEach((channel) => {
+       console.log (` - ${channel.name) ${channel.type} ${channel.id}`)
+   })
+})
+                                     
+#### Zeile 1115: client.login("XXXX")
+
+Hier muss der zuvor erwähnte Token eingefügt werden.
+    
+### Ausführen des Programms
+
+Nach erfolgreicher Anpassung des Quellcodes kann das Programm mit dem Befehl 
 ```
-until finished
+node bat.js 
 ```
-
-End with an example of getting some data out of the system or using it for a little demo
-
-## Ausführen des Programms
-
-Explain how to run the automated tests for this system
-
-### Break down into end to end tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-
-Add additional notes about how to deploy this on a live system
-
-## Built With
-
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
-
-## Contributing
-
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
-
-
-## Acknowledgments
-
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
+ausgeführt werden.
