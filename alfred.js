@@ -212,8 +212,6 @@ function processCommandAusführen(recievedMessage, splitCommand) {
         kommentwCommand(arguments, recievedMessage)
     } else if (primaryCommandErstesWort.toLowerCase() == "rating") {
         ratingCommand(arguments, recievedMessage)
-    } else if (primaryCommandErstesWort.toLowerCase() == "evaluation") {
-        evaCommand(arguments, recievedMessage)
     } else if (primaryCommandErstesWort.toLowerCase() == "inhalt") {
         inhaltCommand(arguments, recievedMessage)
     }
@@ -243,9 +241,6 @@ function inhaltCommand(arguments, recievedMessage) {
         }
     }
     recievedMessage.channel.send(antwort);
-}
-
-function evaCommand(arguments, recievedMessage) {
 }
 
 function vertiefungCommand(arguments, recievedMessage) {
