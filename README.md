@@ -46,7 +46,7 @@ Hier muss der zuvor erwähnte Token eingefügt werden.
     
 ### Ausführen des Programms
 
-Nach erfolgreicher Anpassung des Quellcodes kann das Programm mit dem Befehl 
+Nach erfolgreicher Anpassung des Quellcodes kann das Programm in Visual Studio Code mit dem Befehl 
 ```
 node alfred.js 
 ```
