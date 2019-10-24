@@ -18,7 +18,7 @@ client.on('ready', () => { //ready-event wird getriggered nachdem der Bot connec
 
     //Bot schickt Nachricht in den general Channel von Alfred"s Service Server
     //zum Zeichen, dass er erfolgreich verbunden ist
-    let generalChannel = client.channels.get("618466465179369504")
+    let generalChannel = client.channels.get("XXXX")
     generalChannel.send("Hallo, ich bin online und stets zu Diensten!")
 })
 
