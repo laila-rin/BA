@@ -1,7 +1,7 @@
 # Das Programm zur Bachelorarbeit:
 ## Implementierung und Evaluation eines Chatbots zur Unterstützung von Studierenden bei ihrer Studiumsplanung und Modulauswahl im Studienfach Wirtschaftswissenschaften
 
-In der Bachelorarbeit wird die Konzeption und Implementierung eines Chatbots untersucht. Der Chatbot soll die Aufgaben eines Modulhandbuchs erfüllen und Studierenden bei der Modulauswahl helfen. Der Bot kann dem User anhand ausgewählter Kriterien eine Auswahl passender Module erstellen. Der Mehrwert des Chatbots resultiert aus der Unkompliziertheit und der Zeitersparnis für den User. 
+In der Bachelorarbeit wird die Konzeption und Implementierung eines Chatbots untersucht. Der Chatbot soll die Aufgaben eines Modulhandbuchs erfüllen und Studierenden bei der Modulauswahl helfen. Der Bot kann dem User anhand ausgewählter Kriterien eine Auswahl passender Module erstellen. Vorteile des Chatbots sind die unkomplizierte Nutzung und Zeitersparnis für den User. 
 
 ### Voraussetzungen
 
