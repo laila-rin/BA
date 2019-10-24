@@ -28,7 +28,7 @@ Der Quellcode muss an den folgenden Stellen angepasst werden:
 
 #### Zeile 21: let generalChannel = client.channels.get("XXXX"). 
 
-Statt der XXXX muss die ID des generellen Servers eingesetzt werden.
+Statt der XXXX muss die ID des "general" Channels des Servers eingesetzt werden.
 Diese kann aus der URL gelesen werden, es ist die letzte mehrstellige Zahl nach einem /.
      
 Oder durch die Ausführung des folgenden Codeabschnitts im Bereich des ready-Events auf der Konsole ausgegeben werden. Es ist die ID des general text:
