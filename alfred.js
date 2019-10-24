@@ -93,20 +93,21 @@ client.on('message', (recievedMessage) => {
         processCommandAusführen(recievedMessage, splitCommand);
     }
 
-    else if (recievedMessage.content.startsWith("hallo") || recievedMessage.content.startsWith("Hallo")) {
+    else if (recievedMessage.content.startsWith("hallo") || recievedMessage.content.startsWith("Hallo")
+            || recievedMessage.content.startsWith("hi") || recievedMessage.content.startsWith("Hi")) {
         var zul = Math.floor(Math.random() * 10);
         if (zul == 0 || zul == 9) {
             recievedMessage.react("😄");
-            recievedMessage.channel.send(recievedMessage.author.toString() + "Hi!");
+            recievedMessage.channel.send(recievedMessage.author.toString() + " Hi!");
         } else if (zul == 1 || zul == 8) {
             recievedMessage.react("😉");
-            recievedMessage.channel.send(recievedMessage.author.toString() + "Hello");
+            recievedMessage.channel.send(recievedMessage.author.toString() + " Hello");
         } else if (zul == 2 || zul == 7) {
             recievedMessage.react("😊");
-            recievedMessage.channel.send(recievedMessage.author.toString() + "Hallo!");
+            recievedMessage.channel.send(recievedMessage.author.toString() + " Hallo!");
         } else if (zul == 3 || zul == 6) {
             recievedMessage.react("😋");
-            recievedMessage.channel.send(recievedMessage.author.toString() + "Hi Du!");
+            recievedMessage.channel.send(recievedMessage.author.toString() + " Hi Du!");
         } else {
             recievedMessage.react("😎");
             recievedMessage.channel.send("Hi " + recievedMessage.author.toString() + "!");
@@ -135,8 +136,8 @@ let alleModule = []; //ein Array aller Objekte von WisoModul
 //die kommende Funktion fragt die Befehle ab und leitet sie zu den richtigen Funktionen weiter
 function processCommandAusführen(recievedMessage, splitCommand) {
     if (splitCommand == 0) {
-        recievedMessage.channel.send(recievedMessage.author.toString() + ", was kann ich für dich tun?\n !hilfe oder "
-                                                                        + "!Befehle für eine Liste all meiner Befehle.")
+        recievedMessage.channel.send(recievedMessage.author.toString() + ", was kann ich für dich tun?\n **!hilfe** oder "
+                                                                        + "**!Befehle** für eine Liste all meiner Befehle.")
         return;
     }
 
@@ -218,7 +219,8 @@ function processCommandAusführen(recievedMessage, splitCommand) {
     }
     else {
         recievedMessage.channel.send("Error 0815, Befehl nicht gefunden. "
-                                    + "💩\n**'!Hilfe'** oder **'!Befehle'** für Hilfe!")
+                                    + "💩\n**'!Hilfe'** oder **'!Befehle'** für Hilfe!"
+                                    + "\nIn den DMs nur **Befehle** oder **Hilfe**.")
     }
 }
 
@@ -379,18 +381,19 @@ function semesterCommand(arguments, recievedMessage) {
                 for (i = 0; i < alleModule.length; i++) {
                     if (alleModule[i].semesterzahl == arguments[0]) {
                         antwort += "- " + alleModule[i].modulbezeichnung + "\n";
+                        mo = true;
                     }
                 }
                 if (!mo) {
-                    antwort += "Da ist wohl etwas schief gelaufen! Die Semesterzahl muss eine **Ganzzahl** sein und "
-                            + "im Bereich von **1-6** liegen."
+                    antwort += "Da ist wohl etwas schief gelaufen! Ich konnte keine Module finden.\nDie Semesterzahl muss eine **Ganzzahl** sein und "
+                            + "im Bereich zwischen **1-6** liegen."
                 }
             }
         } else {
             mo = false;
             for (i = 0; i < alleModule.length; i++) {
-                for (j = 0; j < alleModule.length; j++) {
-                    if (alleModule[i].modulbezeichnung.toLowerCase() == arguments[j].toLowerCase()) {
+                for (j = 0; j < arguments.length; j++) {
+                    if (alleModule[i].modulbezeichnung.toLowerCase().includes(arguments[j].toLowerCase())) {
                         antwort += alleModule[i].selfRegelstudiensemester() + "\n";
                         mo = true;
                     }
@@ -428,7 +431,7 @@ function voraussetzungenCommand(arguments, recievedMessage) {
         antwort += "Für die folgenden Module brauchst du keine Voraussetzungen erfüllen:\n";
         for (i = 0; i < alleModule.length; i++) {
             if (alleModule[i].voraussetzungen == "Keine") {
-                antwort += "- " + alleModule[i].selfVoraussetzungen() + "\n";
+                antwort += "- " + alleModule[i].modulbezeichnung + "\n";
             }
         }
     }
@@ -446,7 +449,7 @@ function interestCommand(arguments, recievedMessage) {
         mo = false;
         for (i = 0; i < alleModule.length; i++) {
             for (j = 0; j < arguments.length; j++) {
-                if (alleModule[i].inhalt.includes(arguments[j])) {
+                if (alleModule[i].inhalt.includes(arguments[j]) || alleModule[i].inhalt.toLowerCase().includes(arguments[j])) {
                     antwort += "- " + alleModule[i].modulbezeichnung + "\n";
                     mo = true;
                 }
@@ -574,7 +577,7 @@ function dauerCommand(arguments, recievedMessage) {
                     }
                 }
                 if (zaehler == 0) {
-                    antwort += "Leider fine ich momentan keine Module, die als Blockseminar angeboten werden."
+                    antwort += "Leider finde ich momentan keine Module, die als Blockseminar angeboten werden."
                 }
             } else {
                 mo = false;
@@ -618,7 +621,7 @@ function spracheCommand(arguments, recievedMessage) {
                 antwort += "Folgende Module gibt es in der Sprache " + arguments[0] + ":\n";
                 zaehler = 0;
                 for (i = 0; i < alleModule.length; i++) {
-                    if (alleModule[i].sprache == arguments[0]) {
+                    if (alleModule[i].sprache == arguments[0].toLowerCase()) {
                         antwort += "- " + alleModule[i].modulbezeichnung + "\n";
                         zaehler++;
                     }
@@ -765,7 +768,7 @@ function ratingCommand(arguments, recievedMessage) { //hier noch nach modjulen m
     var mod = false;
     if (arguments == 0) {
         antwort += "Möchtest du wissen, wie ein Modul von deinen Studienkollegen gerated wurde? Dann schreibe "
-                + "**Rating Modulname**\nOder willst du ein Modul bewerten? Dann schreibe **Rating Modulname Zahl(1-5)** "
+                + "**Rating Modulname**\nOder willst du ein Modul bewerten? Dann schreibe **Rating Modulname Note** "
                 + "Bitte beachte, dass Modulnamen, die aus mehreren Worten bestehen mit einem _ verknüpft werden müssen. "
                 + "ZB.: **Managing_Technological_Change**\nIch kann dir auch eine Auflistung aller Module mit einem "
                 + "bestimmten Rating(oder besser) geben. Schreibe dazu **Rating Zahl**";
@@ -791,7 +794,7 @@ function ratingCommand(arguments, recievedMessage) { //hier noch nach modjulen m
             mod = false;
             for (i = 0; i < alleModule.length; i++) {
                 if (alleModule[i].modulbezeichnung.toLowerCase() == arguments[0].toLowerCase()) {
-                    antwort += alleModule[i].selfRating() + " von 5";
+                    antwort += alleModule[i].selfRating();
                     mod = true;
                 }
             }
@@ -799,8 +802,7 @@ function ratingCommand(arguments, recievedMessage) { //hier noch nach modjulen m
                 antwort += "Dieses Modul kenne ich leider nicht.";
             }
         }
-    } else if (arguments.length == 2 && (arguments[1] == 1 || arguments[1] == 2 
-                || arguments[1] == 3 || arguments[1] == 4 || arguments[1] == 5)) {
+    } else if (arguments.length == 2 && (!isNaN(Number(arguments[0]))) && arguments[0]<4 && arguments[0]>1) {
         for (i = 0; i < alleModule.length; i++) {
             if (alleModule[i].modulbezeichnung.toLowerCase() == arguments[0].toLowerCase()) {
                 antwort += "Du hast das Modul erfolgreich bewertet! Danke Dir!💖";
@@ -815,7 +817,7 @@ function ratingCommand(arguments, recievedMessage) { //hier noch nach modjulen m
             antwort += "Dieses Modul kenne ich leider nicht.";
         }
     } else {
-        antwort += "Dann erkläre ich dir das nochmal: **Rating Modulname Zahl(1-5)** und nicht mehr oder weniger!"
+        antwort += "Dann erkläre ich dir das nochmal: **Rating Modulname Note** und nicht mehr oder weniger!"
     }
     recievedMessage.channel.send(antwort);
 }
@@ -866,7 +868,7 @@ function kommentCommand(arguments, recievedMessage) {
         return;
     } else {
         for (i = 0; i < alleModule.length; i++) {
-            if (arguments.includes(alleModule[i].modulbezeichnung)) {
+            if (alleModule[i].modulbezeichnung.toLowerCase() == arguments[0].toLowerCase()) {
                 antwort += alleModule[i].selfKommentare();
                 modulbekanntz = true;
             }
@@ -884,15 +886,6 @@ function kommentCommand(arguments, recievedMessage) {
 
 function kickCommand(arguments, recievedMessage) {
 }
-
-function oneArray(arguments) {
-    var antwort = "";
-    for (i = 0; i < arguments.length; i++) {
-        antwort += arguments[i] + " ";
-    }
-    return antwort;
-}
-
 
 function roleCommand(recievedMessage){
 }
@@ -927,8 +920,10 @@ function befehleCommand(arguments, recievedMessage) {
         + "\n- Vertiefungsbereich"
         + "\n- Voraussetzungen";
     antwort += "\nDamit ich weiß, dass du deine Befehle an mich richtest kannst du mich entweder mit **@Alfred** an "
-            + "mich wenden, oder den Befehl mit einem **!** beginnen.\nBitte beachte, dass Modulnamen, die aus mehreren "
+            + "mich wenden, oder den Befehl mit einem **!** beginnen.\nIn den DMs brauchst du mich natürlich nicht "
+            + "extra ansprechen, also kein **!** oder **@Alfred**.\nBitte beachte, dass Modulnamen, die aus mehreren "
             + "Worten bestehen mit einem _ verknüpft werden müssen. ZB.: **Managing_Technological_Change**"
+            + "\nMit einem** * **gekennzeichnete Befehle werden noch implementiert und sind bald funktionsfähig!"
     recievedMessage.channel.send(antwort);
 
 }
@@ -956,7 +951,7 @@ function ectsCommand(arguments, recievedMessage) {
         } else {
             var modulbekannt = false;
             for (var i = 0; i < alleModule.length; i++) {
-                if (arguments.includes(alleModule[i].modulbezeichnung)) {
+                if (arguments.includes(alleModule[i].modulbezeichnung) || arguments.includes(alleModule[i].modulbezeichnung.toLowerCase())) {
                     modulbekannt = true;
                     antwort += alleModule[i].modulbezeichnung + " " + alleModule[i].selfEcts() + "\n";
                 }
@@ -1040,17 +1035,22 @@ class WisoModul {
     }
 
     selfKommentare() {
-        var antwort = "Kommentare für " + this.modulbezeichnung + ": \n\n";
+        var antwort = "**Kommentare für " + this.modulbezeichnung + ":** \n\n";
         var zahler = 1;
-        for (i = 0; i < this.kommentare.length; i++) {
+        /*for (i = 0; i < this.kommentare.length; i++) {
             antwort += "**Student " + zahler.toString() + ":** " + this.kommentare[i] + "\n\n";
             zahler++;
+        }*/
+        var kcomment = this.kommentare.join("\n\n");
+        antwort += kcomment.toString();
+        if (kcomment == 0){
+            antwort += "Leider gibt es zu diesem Modul noch keine Kommentare.";
         }
         return antwort;
     }
 
     selfRating() {
-        return "Rating für " + this.modulbezeichnung + ": Note " + this.rating[0];
+        return "Rating für " + this.modulbezeichnung + ": **Note " + this.rating[0] + "**";
     }
 
     selfModulbezeichnung() {
@@ -1142,8 +1142,8 @@ class WisoModul {
     }
     selfSchnitt() {
         if (this.schnitt == 100) return "Zu dem Modul " + this.modulbezeichnung + " ist keine Durchschnittsnote hinterlegt."
-        return "Nach Angaben aus dem SS 2018 hat " + this.modulbezeichnung 
-                + " eine Durchschnittsnote von " + this.schnitt.toString() + ".\nAngabe ohne Gewähr."
+        return "Im SS 2018 hatte " + this.modulbezeichnung 
+                + " eine Durchschnittsnote von **" + this.schnitt.toString() + "**.\nAngabe ohne Gewähr."
     }
     selfEcts() {
         return "ECTS: " + this.ects.toString();
@@ -1180,28 +1180,28 @@ alleModule.push(unternehmensplanspiel);
 let agilProjMan = new WisoModul("Agiles_Projektmanagement", 3286, "", "Rössler", "Gardini", "Das Seminar vermittelt Scrum als agiles Framework zum Management von Projekten und betrachtet seine Anwendung im interkulturellen Kontext Lateinamerika", "Die Studierenden\n- erwerben fundierte Kenntnisse über politische Prozesse, ökonomische Veränderungen und gesellschaftliche Herausforderungen im Kontext von Globalisierungs- und Integrationsprozessen.\n- entwickeln die Fähigkeit, die Dynamik interner und externer Faktoren zu analysieren und zu bewerten.", "Erfolgreicher Abschluss der Assessmentphase", 4, ["sozök"], ["hausarbeit"], ["ws", "ss"], [30, 120], [1, "s"], ["deutsch"], -1, "-", "-", 100, 5, [2.5, 1], ["ist in ordnung", "sehr interessant und lehrreich"]);
 alleModule.push(agilProjMan);
 
-let arbeitsrecht = new WisoModul("Arbeitsrecht_1", 3651, "", "Begründung und Inhalt von Arbeitsverhältnissen", "Holzer-Thieser und Andreas Beulmann", "Hoffmann", "Die Studierenden\n- erwerben fundierte Kenntnisse über die Begründung und die Ausgestaltung von Arbeitsverhältnissen, Arbeitnehmer- und Arbeitgeberpflichten, sowie über Fragen zu Gleichbehandlung, Befristung von Arbeitsverhältnissen, Urlaubsansprüchen und zur Entgeltfortzahlung im Krankheitsfall.\n- werden in die wissenschaftliche Beschäftigung mit arbeitsrechtlichen Fragestellungen eingeführt und auf eine spätere berufliche Tätigkeit vorbereitet.\n- erlernen anhand von Fallbeispielen die arbeitsrechtliche Rechtsprechung und können diese analysieren, beurteilen und fallspezifisch umsetzen.\n- entwickeln die Fähigkeit, arbeitsrechtliche Fragestellungen in der Praxis (z.B. in den Bereichen Personalwesen, Wirtschaftspädagogik, Sozialökonomik) selbstständig zu erörtern und zu lösen.", "Erfolgreicher Abschluss der Assessmentphase", 4, ["sozök"], ["klausur"], ["ws"], [45, 105], [1, "s"], ["deutsch"], -1, "-", "-", 3.9, 5, 3.9, ["viel zu schwer", "mega schlechter schnitt"]);
+let arbeitsrecht = new WisoModul("Arbeitsrecht_1", 3651, "", "Begründung und Inhalt von Arbeitsverhältnissen", "Holzer-Thieser und Andreas Beulmann", "Hoffmann", "Die Studierenden\n- erwerben fundierte Kenntnisse über die Begründung und die Ausgestaltung von Arbeitsverhältnissen, Arbeitnehmer- und Arbeitgeberpflichten, sowie über Fragen zu Gleichbehandlung, Befristung von Arbeitsverhältnissen, Urlaubsansprüchen und zur Entgeltfortzahlung im Krankheitsfall.\n- werden in die wissenschaftliche Beschäftigung mit arbeitsrechtlichen Fragestellungen eingeführt und auf eine spätere berufliche Tätigkeit vorbereitet.\n- erlernen anhand von Fallbeispielen die arbeitsrechtliche Rechtsprechung und können diese analysieren, beurteilen und fallspezifisch umsetzen.\n- entwickeln die Fähigkeit, arbeitsrechtliche Fragestellungen in der Praxis (z.B. in den Bereichen Personalwesen, Wirtschaftspädagogik, Sozialökonomik) selbstständig zu erörtern und zu lösen.", "Erfolgreicher Abschluss der Assessmentphase", 4, ["sozök"], ["klausur"], ["ws"], [45, 105], [1, "s"], ["deutsch"], -1, "-", "-", 3.9, 5, [3.9, 1], ["viel zu schwer", "mega schlechter schnitt"]);
 alleModule.push(arbeitsrecht);
 
-let datenermittlung = new WisoModul("Datenermittlung", 3150, "", "Wildner", "Wildner", "- Vermittlung wissenschaftlicher und praktischer Grundlagen zur Erhebung empirischer Daten\n- Darstellung qualitativer / quantitativer Erhebungsmethoden, insb. Beobachtung, Befragung usw. sowie Einmal- und Panelstudien\n- Vertiefung der Methode der Befragung durch Grundlagen der Fragebogengestaltung, Einführung in die Klassische Testtheorie mit den Gütekriterien Reliabilität und Validität\n- Darstellung verschiedener Stichprobenverfahren:\n- Zufalls- und Quotenauswahl / bewusste Auswahlverfahren\n- einfache Zufallsauswahl\n- allgemeine zweistufige Zufallsauswahl\n- Clusterstichproben\n- geschichtete Stichproben und deren Optimierung\n- Vorstellung von Hochrechungsverfahren und Gewichtung", "Die Studierenden\n- erwerben anwendungsbezogene Grundlagen von empirischen Erhebungsmethoden.\n- erhalten eine Einführung in die Fragebogengestaltung und allgemeine Konzeption von Erhebungen.\n- erlernen die Bestimmung der Stichprobentheorie und deren Übertragung auf unterschiedliche Stichprobenverfahren.n- können aus Stichproben Parameter hochrechnen.\n- bestimmen wie man wo, wann, auf welche Weise und zu welchen Kosten an benötigte Daten gelangt sowie welche Fallstricke und Schwächen die Datenerhebung birgt.", "Erfolgreicher Abschluss der Assessmentphase\n- Vorherige Teilnahme an der Veranstaltung 'Statistik'", 4, ["bwl"], ["klausur"], ["ss"], [60, 90], [1, "s"], ["deutsch"], -1, "-", "-", 1.86, 5, 1.86, ["viel Mathe aber macht spaß", "easy eine gute note geholt!!"]);
+let datenermittlung = new WisoModul("Datenermittlung", 3150, "", "Wildner", "Wildner", "- Vermittlung wissenschaftlicher und praktischer Grundlagen zur Erhebung empirischer Daten\n- Darstellung qualitativer / quantitativer Erhebungsmethoden, insb. Beobachtung, Befragung usw. sowie Einmal- und Panelstudien\n- Vertiefung der Methode der Befragung durch Grundlagen der Fragebogengestaltung, Einführung in die Klassische Testtheorie mit den Gütekriterien Reliabilität und Validität\n- Darstellung verschiedener Stichprobenverfahren:\n- Zufalls- und Quotenauswahl / bewusste Auswahlverfahren\n- einfache Zufallsauswahl\n- allgemeine zweistufige Zufallsauswahl\n- Clusterstichproben\n- geschichtete Stichproben und deren Optimierung\n- Vorstellung von Hochrechungsverfahren und Gewichtung", "Die Studierenden\n- erwerben anwendungsbezogene Grundlagen von empirischen Erhebungsmethoden.\n- erhalten eine Einführung in die Fragebogengestaltung und allgemeine Konzeption von Erhebungen.\n- erlernen die Bestimmung der Stichprobentheorie und deren Übertragung auf unterschiedliche Stichprobenverfahren.n- können aus Stichproben Parameter hochrechnen.\n- bestimmen wie man wo, wann, auf welche Weise und zu welchen Kosten an benötigte Daten gelangt sowie welche Fallstricke und Schwächen die Datenerhebung birgt.", "Erfolgreicher Abschluss der Assessmentphase\n- Vorherige Teilnahme an der Veranstaltung 'Statistik'", 4, ["bwl"], ["klausur"], ["ss"], [60, 90], [1, "s"], ["deutsch"], -1, "-", "-", 1.86, 5, [1.86, 1], ["viel Mathe aber macht spaß", "easy eine gute note geholt!!"]);
 alleModule.push(datenermittlung);
 
-let beschaffungsmanagement = new WisoModul("Beschaffungsmanagement", 4270, "", "Voigt", "Voigt", "Die Beschaffung in Industrieunternehmen nimmt gerade aufgrund der stetigen Verringerung der Wertschöpfungstiefe an Bedeutung zu. Die Zusammenarbeit mit Lieferanten rückt in den Vordergrund der Betrachtung und es gilt, diese gezielt zu managen. Das Ziel der Veranstaltung ist es zu zeigen, wodurch die Beschaffung von Industrieunternehmen gekennzeichnet ist und wie eine erfolgreiche Lieferanten-Abnehmer-Beziehung ausgestaltet werden soll. Neben einem allgemeinen theoretischen Teil, der insbesondere die theoretischen Grundlagen, die Bestimmungsgrößen, die organisationalen Rahmenbedingungen, die Organisationsformen der Beschaffung und der strategischen Beschaffungsplanung behandelt, müssen die Teilnehmer in Gruppenarbeit selbständig wissenschaftliche Themen des Beschaffungsmanagements erarbeiten, präsentieren und diskutieren", "Die Studierenden verfügen über umfassendes und detailliertes Wissen über das Beschaffungsmanagement. Ausgehend von den wichtigsten aktuellen Entwicklung im Beschaffungsmanagement, können sie die organisationalen und umweltspezifischen Bestimmungsgrößen, die auf das Beschaffungsmanagement einwirken, selbstständig erkennen und erläutern. Außerdem verfügen die Studierenden detaillierte Kenntnisse über Methoden und Werkzeuge zur Bestimmung strategischer Alternativen im Beschaffungsmanagement, wie z.B. die grundsätzliche Frage von Make-or-buy-Entscheidungen, die Auswahl von Sourcing Strategien oder die Priorisierung unterschiedlicher Güterklassen. Die Studierenden können mit Hilfe dieser Informationen strategische Fragestellungen des Beschaffungsmanagements beurteilen, Handlungsempfehlungen abgeben und mögliche Ansätze auch kritisch hinterfragen. Daneben analysieren die Studierenden in Gruppenarbeit aktuelle Fragestellungen aus dem Beschaffungsmanagement. Die nötige Literatur müssen sich die Studierenden anhand wissenschaftlicher Veröffentlichungen innerhalb einer Literaturrecherche selbst suchen, evaluieren und strukturieren. Die Ergebnisse werden dann während der Veranstaltung präsentiert, wobei eine anschließende Diskussion (im Rahmen von selbst verfassten Thesen), sowohl inhaltlich als auch methodisch, ausdrücklich vorgesehen ist. Die Ergebnisse der Diskussion sollen dann direkt in die weitere Ausarbeitung der Fragestellung mit einfließen", "Erfolgreicher Abschluss der Assessmentphase", 4, ["bwl"], ["vortrag", "klausur"], ["ws"], [30, 120], [1, "s"], ["deutsch"], 80, "-", "Kein Link hinterlegt, Anmeldezeitraum: erste Woche im Vorlesungszeitraum im WiSe", 1.85, 5, 1.85, ["klassisches BWL Modul"]);
+let beschaffungsmanagement = new WisoModul("Beschaffungsmanagement", 4270, "", "Voigt", "Voigt", "Die Beschaffung in Industrieunternehmen nimmt gerade a0ufgrund der stetigen Verringerung der Wertschöpfungstiefe an Bedeutung zu. Die Zusammenarbeit mit Lieferanten rückt in den Vordergrund der Betrachtung und es gilt, diese gezielt zu managen. Das Ziel der Veranstaltung ist es zu zeigen, wodurch die Beschaffung von Industrieunternehmen gekennzeichnet ist und wie eine erfolgreiche Lieferanten-Abnehmer-Beziehung ausgestaltet werden soll. Neben einem allgemeinen theoretischen Teil, der insbesondere die theoretischen Grundlagen, die Bestimmungsgrößen, die organisationalen Rahmenbedingungen, die Organisationsformen der Beschaffung und der strategischen Beschaffungsplanung behandelt, müssen die Teilnehmer in Gruppenarbeit selbständig wissenschaftliche Themen des Beschaffungsmanagements erarbeiten, präsentieren und diskutieren", "Die Studierenden verfügen über umfassendes und detailliertes Wissen über das Beschaffungsmanagement. Ausgehend von den wichtigsten aktuellen Entwicklung im Beschaffungsmanagement, können sie die organisationalen und umweltspezifischen Bestimmungsgrößen, die auf das Beschaffungsmanagement einwirken, selbstständig erkennen und erläutern. Außerdem verfügen die Studierenden detaillierte Kenntnisse über Methoden und Werkzeuge zur Bestimmung strategischer Alternativen im Beschaffungsmanagement, wie z.B. die grundsätzliche Frage von Make-or-buy-Entscheidungen, die Auswahl von Sourcing Strategien oder die Priorisierung unterschiedlicher Güterklassen. Die Studierenden können mit Hilfe dieser Informationen strategische Fragestellungen des Beschaffungsmanagements beurteilen, Handlungsempfehlungen abgeben und mögliche Ansätze auch kritisch hinterfragen. Daneben analysieren die Studierenden in Gruppenarbeit aktuelle Fragestellungen aus dem Beschaffungsmanagement. Die nötige Literatur müssen sich die Studierenden anhand wissenschaftlicher Veröffentlichungen innerhalb einer Literaturrecherche selbst suchen, evaluieren und strukturieren. Die Ergebnisse werden dann während der Veranstaltung präsentiert, wobei eine anschließende Diskussion (im Rahmen von selbst verfassten Thesen), sowohl inhaltlich als auch methodisch, ausdrücklich vorgesehen ist. Die Ergebnisse der Diskussion sollen dann direkt in die weitere Ausarbeitung der Fragestellung mit einfließen", "Erfolgreicher Abschluss der Assessmentphase", 4, ["bwl"], ["vortrag", "klausur"], ["ws"], [30, 120], [1, "s"], ["deutsch"], 80, "-", "Kein Link hinterlegt, Anmeldezeitraum: erste Woche im Vorlesungszeitraum im WiSe", 1.85, 5, [1.85, 1], ["klassisches BWL Modul"]);
 alleModule.push(beschaffungsmanagement);
 
-let personalökonomik = new WisoModul("Grundlagen_der_Personalökonomik", 6590, ["Vorlesung", "Übung"], "Stephan", "Stephan", "Zentrale Aufgaben des Personalmanagements sind aus personalökonomischer Sicht die effiziente Allokation von Ressourcen und die optimale Ausgestaltung von Anreizen innerhalb des Unternehmens – kurz Koordination und Motivation. Die Veranstaltung behandelt aus dieser Perspektive unter anderem die folgenden Themen: Qualifikationsanforderungen, befristete und unbefristete Arbeitsverträge, Selbstselektion von Bewerberinnen und Berwerbern, Weiterbildungsinvestitionen, Entlassungen und Kündigungen, optimale Kompensationspakete, Team- und Gruppenanreize, Personalbeurteilung, Beförderungen und „Turniere“, Effizienzlöhne, Motive der Leistungserbringung.", "Die Studierenden\n- kennen wichtige Konzepte und Modelle der Personalökonomik,\n- übertragen ihre modelltheoretischen Kenntnisse auf neue Fragestellungen,\n- können die Bedeutung der Ausgestaltung von Arbeitsverträgen und Kompensationspaketen erklären,\n- interpretieren empirische Studien personalökonomischer Fragestellungen.", "Grundkenntnisse in Mikroökonomik und Arbeitsmarktökonomik", 5, ["vwl"], ["klausur"], ["ws"], [45, 105], [1, "s"], ["deutsch"], -1, "-", "-", 2.68, 5, 2.68, ["Lieblings Prof! Modul ist La-La"]);
+let personalökonomik = new WisoModul("Grundlagen_der_Personalökonomik", 6590, ["Vorlesung", "Übung"], "Stephan", "Stephan", "Zentrale Aufgaben des Personalmanagements sind aus personalökonomischer Sicht die effiziente Allokation von Ressourcen und die optimale Ausgestaltung von Anreizen innerhalb des Unternehmens – kurz Koordination und Motivation. Die Veranstaltung behandelt aus dieser Perspektive unter anderem die folgenden Themen: Qualifikationsanforderungen, befristete und unbefristete Arbeitsverträge, Selbstselektion von Bewerberinnen und Berwerbern, Weiterbildungsinvestitionen, Entlassungen und Kündigungen, optimale Kompensationspakete, Team- und Gruppenanreize, Personalbeurteilung, Beförderungen und „Turniere“, Effizienzlöhne, Motive der Leistungserbringung.", "Die Studierenden\n- kennen wichtige Konzepte und Modelle der Personalökonomik,\n- übertragen ihre modelltheoretischen Kenntnisse auf neue Fragestellungen,\n- können die Bedeutung der Ausgestaltung von Arbeitsverträgen und Kompensationspaketen erklären,\n- interpretieren empirische Studien personalökonomischer Fragestellungen.", "Grundkenntnisse in Mikroökonomik und Arbeitsmarktökonomik", 5, ["vwl"], ["klausur"], ["ws"], [45, 105], [1, "s"], ["deutsch"], -1, "-", "-", 2.68, 5, [2.68, 1], ["Lieblings Prof! Modul ist La-La"]);
 alleModule.push(personalökonomik);
 
-let iWirtschaft = new WisoModul("Internationale_Wirtschaft ", 2392, ["Vorlesung", "Übung"], "Merkl und Moser", "Merkl und Moser", "- Zahlen und Fakten zum Welthandel\n- Grundlegende Handelstheorien und deren Implikationen\n- Wechselkurse und deren Rolle\n- Internationale makroökonomische Politik", "Die Studierenden\n- bekommen einen Einblick in Welthandelsbeziehungen und können Zusammenhänge zwischen Konjunkturpolitik, Leistungsbilanzen und Wechselkursen erläutern.\n- erwerben Kenntnisse über Ursachen und Auswirkungen des internationalen Handels und können Zusammenhänge, etwa die Auswirkungen wirtschaftspolitischer Maßnahmen auf die Wechselkursentwicklung, beurteilen.\n- Sind in der Lage Ergebnisse zu interpretieren und mit Hilfe graphischer Modellen zu visualisieren", "Makroökonomie", 3, ["vwl"], ["klausur"], ["ws"], [60, 90], [1, "s"], ["deutsch", "englisch"], -1, "-", "-", 2.67, 5, 2.67, []);
+let iWirtschaft = new WisoModul("Internationale_Wirtschaft", 2392, ["Vorlesung", "Übung"], "Merkl und Moser", "Merkl und Moser", "- Zahlen und Fakten zum Welthandel\n- Grundlegende Handelstheorien und deren Implikationen\n- Wechselkurse und deren Rolle\n- Internationale makroökonomische Politik", "Die Studierenden\n- bekommen einen Einblick in Welthandelsbeziehungen und können Zusammenhänge zwischen Konjunkturpolitik, Leistungsbilanzen und Wechselkursen erläutern.\n- erwerben Kenntnisse über Ursachen und Auswirkungen des internationalen Handels und können Zusammenhänge, etwa die Auswirkungen wirtschaftspolitischer Maßnahmen auf die Wechselkursentwicklung, beurteilen.\n- Sind in der Lage Ergebnisse zu interpretieren und mit Hilfe graphischer Modellen zu visualisieren", "Makroökonomie", 3, ["vwl"], ["klausur"], ["ws"], [60, 90], [1, "s"], ["deutsch", "englisch"], -1, "-", "-", 2.67, 5, [2.67, 1], []);
 alleModule.push(iWirtschaft);
 
-let mtc = new WisoModul("Managing_Technological_Change", 3442, ["Vorlesung", "Übung"], "Amberg und Mitarbeitende", "Amberg", "Die Fähigkeit einer Organisation, die Bedürfnisse des Marktes mit den Potentialen neuer Technologien schnell und effizient abzugleichen und in die eigenen Produkte und Prozesse zu integrieren, ist eine wesentliche Voraussetzung für Unternehmenserfolg.\nIn der Vorlesung werden den Studierenden umfassende Grundlagen über Motivation, Ziele, Aufgaben, Prozesse und Methoden des Technologiemanagements ermittelt.\n- Einordnung/Abgrenzung des Technologiemanagements\n- Notwendige Unternehmensprozesse und -strukturen\n- Entwicklung von Technologiestrategien\n- Technologieanalyse und -früherkennung\n- Technologieplanung und -entwicklung\n- Technologieverwertung und Technologieschutz\n- Bewertung von Technologien\n- Anwendungen in der Praxis\nIn der Übung wenden die Studierenden die Methoden des Technologiemanagements am Beispiel spezifischer Fragestellungen an und stellen die, in Gruppen erarbeiteten, Ergebnisse im Rahmen einer Präsentation vor. Zu den Präsentationen geben sich die Studierenden gegenseitig wertschätzendes Feedback.", "Die Studierenden kennen und verstehen Konzepte und Methoden des Technologiemanagements und können diese praktisch anwenden zur:\n- Früherkennung neuer Trends, Entwicklungen und Technologien\n- Bewertung und Priorisierung neuer Technologien\n- Integration/Umsetzung neuer Technologien in Produkten und Prozessen\nBei der praktischen Anwendung von Methoden des Technologiemanagements im Rahmen der Übung werden die entwickelten Ansätze mit den Studierenden diskutiert und weiterentwickelt.", "Erfolgreicher Abschluss der Assessmentphase", 4, ["wi"], ["klausur", "vortrag"], ["ss"], [60, 90], [1, "s"], ["deutsch"], -1, "-", "-", 1.42, 5, 1.42, ["Easy ne gute Note und faire Klausur ;D", "netter lehrstuhl"]);
+let mtc = new WisoModul("Managing_Technological_Change", 3442, ["Vorlesung", "Übung"], "Amberg und Mitarbeitende", "Amberg", "Die Fähigkeit einer Organisation, die Bedürfnisse des Marktes mit den Potentialen neuer Technologien schnell und effizient abzugleichen und in die eigenen Produkte und Prozesse zu integrieren, ist eine wesentliche Voraussetzung für Unternehmenserfolg.\nIn der Vorlesung werden den Studierenden umfassende Grundlagen über Motivation, Ziele, Aufgaben, Prozesse und Methoden des Technologiemanagements ermittelt.\n- Einordnung/Abgrenzung des Technologiemanagements\n- Notwendige Unternehmensprozesse und -strukturen\n- Entwicklung von Technologiestrategien\n- Technologieanalyse und -früherkennung\n- Technologieplanung und -entwicklung\n- Technologieverwertung und Technologieschutz\n- Bewertung von Technologien\n- Anwendungen in der Praxis\nIn der Übung wenden die Studierenden die Methoden des Technologiemanagements am Beispiel spezifischer Fragestellungen an und stellen die, in Gruppen erarbeiteten, Ergebnisse im Rahmen einer Präsentation vor. Zu den Präsentationen geben sich die Studierenden gegenseitig wertschätzendes Feedback.", "Die Studierenden kennen und verstehen Konzepte und Methoden des Technologiemanagements und können diese praktisch anwenden zur:\n- Früherkennung neuer Trends, Entwicklungen und Technologien\n- Bewertung und Priorisierung neuer Technologien\n- Integration/Umsetzung neuer Technologien in Produkten und Prozessen\nBei der praktischen Anwendung von Methoden des Technologiemanagements im Rahmen der Übung werden die entwickelten Ansätze mit den Studierenden diskutiert und weiterentwickelt.", "Erfolgreicher Abschluss der Assessmentphase", 4, ["wi"], ["klausur", "vortrag"], ["ss"], [60, 90], [1, "s"], ["deutsch"], -1, "-", "-", 1.42, 5, [1.42, 1], ["Easy ne gute Note und faire Klausur :)", "netter lehrstuhl", "Amberg Lehrstuhl for president"]);
 alleModule.push(mtc);
 
-let mps = new WisoModul("Managing_Projects_Successfully", 3441, ["Vorlesung", "Übung"], "Amberg und Mitarbeitende", "Amberg", "Eine Vielzahl der Tätigkeiten in Unternehmen wird heutzutage in Projekten abgewickelt. Die Erreichung gesetzter Ziele bei gegebenen Mitteln und Terminen ist eine anspruchsvolle Aufgabe.\nIn der Vorlesung werden den Studierenden umfassende Grundlagen über Motivation, Ziele, Aufgaben, Prozesse und Methoden des Projektmanagements vermittelt.\n- Einfluss von Organisation und Umfeld auf Projekte\n- Zielkonflikte in Projekten\n- Ablauf/Phasen von Projekten\n- Initiierung/Definition von Projekten\n- Planung und Durchführung von Projekten\n Monitoring und Controlling von Projekten\n- Abschluss und Evaluation von Projekten\n- Behandlung von Risiken in Projekten\n- Anwendungen in der Praxis (Gastvorträge)\nIn der Übung wenden die Studierenden die Methoden des Projektmanagements am Beispiel konkreter Projekte an und stellen die, in Gruppen erarbeiteten, Projektpläne im Rahmen einer Präsentation vor. Zu den Präsentationen geben sich die Studierenden gegenseitig wertschätzendes Feedback.", "Die Studierenden kennen und verstehen Konzepte und Methoden des Projektmanagements und können diese praktisch anwenden zur:\n- Initiierung von Projekten\n- Planung von Projekten\n- Durchführung von Projekten\n- Steuerung von Projekten\nBei der praktischen Anwendung von Methoden des Projektmanagements im Rahmen der Übung werden die entwickelten Ansätze mit den Studierenden diskutiert und weiterentwickelt", "Erfolgreicher Abschluss der Assessmentphase", 5, ["wi"], ["klausur", "vortrag"], ["ws"], [60, 90], [1, "s"], ["deutsch"], -1, "-", "-", 2.16, 5, 2.16, []);
+let mps = new WisoModul("Managing_Projects_Successfully", 3441, ["Vorlesung", "Übung"], "Amberg und Mitarbeitende", "Amberg", "Eine Vielzahl der Tätigkeiten in Unternehmen wird heutzutage in Projekten abgewickelt. Die Erreichung gesetzter Ziele bei gegebenen Mitteln und Terminen ist eine anspruchsvolle Aufgabe.\nIn der Vorlesung werden den Studierenden umfassende Grundlagen über Motivation, Ziele, Aufgaben, Prozesse und Methoden des Projektmanagements vermittelt.\n- Einfluss von Organisation und Umfeld auf Projekte\n- Zielkonflikte in Projekten\n- Ablauf/Phasen von Projekten\n- Initiierung/Definition von Projekten\n- Planung und Durchführung von Projekten\n Monitoring und Controlling von Projekten\n- Abschluss und Evaluation von Projekten\n- Behandlung von Risiken in Projekten\n- Anwendungen in der Praxis (Gastvorträge)\nIn der Übung wenden die Studierenden die Methoden des Projektmanagements am Beispiel konkreter Projekte an und stellen die, in Gruppen erarbeiteten, Projektpläne im Rahmen einer Präsentation vor. Zu den Präsentationen geben sich die Studierenden gegenseitig wertschätzendes Feedback.", "Die Studierenden kennen und verstehen Konzepte und Methoden des Projektmanagements und können diese praktisch anwenden zur:\n- Initiierung von Projekten\n- Planung von Projekten\n- Durchführung von Projekten\n- Steuerung von Projekten\nBei der praktischen Anwendung von Methoden des Projektmanagements im Rahmen der Übung werden die entwickelten Ansätze mit den Studierenden diskutiert und weiterentwickelt", "Erfolgreicher Abschluss der Assessmentphase", 5, ["wi"], ["klausur", "vortrag"], ["ws"], [60, 90], [1, "s"], ["deutsch"], -1, "-", "-", 2.16, 5, [2.16, 1], []);
 alleModule.push(mps);
 
-let businessplanseminar = new WisoModul("Businessplanseminar", 2380, ["S: Business Plan Seminar (Blockseminar mit Anwesenheitspflicht)"], "Voigt", "Voigt", "Im Rahmen des Businessplanseminarseminars werden Geschäftsideen für eine potenzielle Unternehmensgründung gesammelt, ausgearbeitet, präsentiert und in Form eines detaillierten Businessplans beschrieben. Dazu erhalten die Studierenden kurze inhaltliche Erläuterungen zu den Zielsetzungen und Bestandteilen eines Businessplans. Zusätzlich dazu veranschaulichen Praxisvorträge von Unternehmensgründern oder Gründungsberatern die Relevanz des Businessplans für die unternehmerische Praxis.", "Die Studierenden arbeiten im Rahmen des Seminars in Arbeitsgruppen die wichtigsten Bestandteile eines Businessplans selbstständig aus. Zur Bearbeitung der einzelnen BusinessplanBestandteile verfügen die Studierenden über einschlägiges Wissen in angrenzenden Bereichen und sammeln, bewerten und interpretieren darüber hinaus Informationen eigenständig durch geeignete Recherche in Dokumenten, dem Internet und/oder empirischen Erhebungen.\nDie Studierenden sind in der Lage, einen Businessplan unter Berücksichtigung unterschiedlicher, thematischer Maßstäbe zu beurteilen. Der Aufbau des Seminars bedingt, dass die Studierenden fachliche Entwicklungen anderer Kommilitonen ebenfalls gezielt fördern, bereichsspezifische und -übergreifende Diskussionen führen sowie wertschätzendes Feedback auf die Zwischenpräsentationen der anderen Seminarteilnehmer geben.\nEine abschließende Präsentation und die Bewertung durch eine Fachjury sollen darüber hinaus dazu beitragen, die Kommunikations- und Präsentationsfähigkeiten der Studierenden zu schulen. Aus diesen Gründen herrscht Anwesenheitspflicht.", "Keine", 6, ["inter"], ["hausarbeit", "vortrag"], ["ss"], [30, 120], [3, "d"], ["deutsch"], -1, "-", "-", 100, 5, 2.5, []);
+let businessplanseminar = new WisoModul("Businessplanseminar", 2380, ["S: Business Plan Seminar (Blockseminar mit Anwesenheitspflicht)"], "Voigt", "Voigt", "Im Rahmen des Businessplanseminarseminars werden Geschäftsideen für eine potenzielle Unternehmensgründung gesammelt, ausgearbeitet, präsentiert und in Form eines detaillierten Businessplans beschrieben. Dazu erhalten die Studierenden kurze inhaltliche Erläuterungen zu den Zielsetzungen und Bestandteilen eines Businessplans. Zusätzlich dazu veranschaulichen Praxisvorträge von Unternehmensgründern oder Gründungsberatern die Relevanz des Businessplans für die unternehmerische Praxis.", "Die Studierenden arbeiten im Rahmen des Seminars in Arbeitsgruppen die wichtigsten Bestandteile eines Businessplans selbstständig aus. Zur Bearbeitung der einzelnen BusinessplanBestandteile verfügen die Studierenden über einschlägiges Wissen in angrenzenden Bereichen und sammeln, bewerten und interpretieren darüber hinaus Informationen eigenständig durch geeignete Recherche in Dokumenten, dem Internet und/oder empirischen Erhebungen.\nDie Studierenden sind in der Lage, einen Businessplan unter Berücksichtigung unterschiedlicher, thematischer Maßstäbe zu beurteilen. Der Aufbau des Seminars bedingt, dass die Studierenden fachliche Entwicklungen anderer Kommilitonen ebenfalls gezielt fördern, bereichsspezifische und -übergreifende Diskussionen führen sowie wertschätzendes Feedback auf die Zwischenpräsentationen der anderen Seminarteilnehmer geben.\nEine abschließende Präsentation und die Bewertung durch eine Fachjury sollen darüber hinaus dazu beitragen, die Kommunikations- und Präsentationsfähigkeiten der Studierenden zu schulen. Aus diesen Gründen herrscht Anwesenheitspflicht.", "Keine", 6, ["inter"], ["hausarbeit", "vortrag"], ["ss"], [30, 120], [3, "d"], ["deutsch"], -1, "-", "-", 100, 5, [2.5, 1], []);
 alleModule.push(businessplanseminar);
 
 //paste bots secret token as parameter to login: client.login("token")
