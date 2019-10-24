@@ -16,7 +16,7 @@ Discord Account
 
 ### Erstellen und Deployment eines Bots
 
-Um den Chatbot zum Laufen zu bekommen muss zuerst eine Bot Applikation eingerichtet und dieser ein Bot hinzugefügt werden. Dies erfolgt über die Weboberfläche des Discord Developer Portals, eine detailierte Erklärung findet sich hier: 
+Um den Chatbot zum Laufen zu bekommen muss zuerst eine Bot Applikation eingerichtet und dieser ein Bot hinzugefügt werden. Dies erfolgt über die Weboberfläche des Discord Developer Portals. Eine detailierte Erklärung findet sich hier: 
 ```
 https://discordjs.guide/preparations/setting-up-a-bot-application.html
 ```
