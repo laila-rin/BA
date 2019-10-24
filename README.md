@@ -20,7 +20,7 @@ Um den Chatbot zum Laufen zu bekommen muss zuerst eine Bot Applikation eingerich
 ```
 https://discordjs.guide/preparations/setting-up-a-bot-application.html
 ```
-Nach Hinzufügen des Bots wird für diesen automatisch ein geheimer Token generiert, welcher im späteren Verlauf noch genutzt wird.
+Nach Hinzufügen des Bots wird für diesen automatisch ein geheimer Token generiert, welcher im Folgenden noch genutzt wird.
 
 ### Anpassung des Quellcodes
 
