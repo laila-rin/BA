@@ -29,9 +29,9 @@ Der Quellcode muss an den folgenden Stellen angepasst werden:
 #### Zeile 21: let generalChannel = client.channels.get("XXXX"). 
 
 Statt der XXXX muss die ID des "general" Channels des Servers eingesetzt werden.
-Diese kann aus der URL gelesen werden, es ist die letzte mehrstellige Zahl nach einem /.
+Diese kann aus der URL gelesen werden, es ist die letzte mehrstellige Zahl nach einem "/".
      
-Oder durch die Ausführung des folgenden Codeabschnitts im Bereich des ready-Events auf der Konsole ausgegeben werden. Es ist die ID des general text:
+Die ID kann auch durch die Ausführung des folgenden Codeabschnitts im Bereich des ready-Events auf der Konsole ausgegeben werden. In der Ausgabe ist es die ID des general text:
 ```
 client.guids.forEach((guild => {
    guild.channels.forEach((channel) => {
