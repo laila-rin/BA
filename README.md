@@ -6,7 +6,7 @@ In der Bachelorarbeit wird die Konzeption und Implementierung eines Chatbots unt
 
 Chatbot Alfred kann Usern anhand ausgewählter Kriterien eine Auswahl passender Module erstellen. Inhaltlich beschränkt sich der Bot auf Module des Studiengangs Wirtschaftswissenschaften mit den Schwerpunkten BWL, VWL und WI an der FAU. Primäre Vorteile des Chatbots sind die unkomplizierte Nutzung und Zeitersparnis bei der Modulauswahl für den User. 
 
-Das Programm beschreibt den im Rahmer der Bachelorarbeit implementierten Chatbot, welcher auf der Plattform Discord betrieben wird. Um den Bot lokal betreiben zu können, bzw. um das Programm lokal erfolgreich ausführen zu können, müssen zuerst die folgenden Voraussetzungen gegeben sein. Außerdem muss ein eigener Bot über die Discord Weboberfläche erstellt werden, auf ein Tutorial hierzu wird in Punkt 2 verwiesen. Zuletzt müssen die in Punkt 3 beschriebenen Anpassungen am Quellcode vorgenommen werden.
+Das Programm beschreibt den im Rahmer der Bachelorarbeit implementierten Chatbot, welcher auf der Plattform Discord betrieben wird. Um den Bot lokal betreiben zu können, bzw. um das Programm lokal erfolgreich ausführen zu können, müssen zuerst die in Punkt 1 folgenden Voraussetzungen gegeben sein. Außerdem muss ein eigener Bot über die Discord Weboberfläche erstellt werden, auf ein Tutorial hierzu wird in Punkt 2 verwiesen. Zuletzt müssen die in Punkt 3 beschriebenen Anpassungen am Quellcode vorgenommen werden.
 
 Sind alle 3 Punkte erledigt, so kann der Chatbot Alfred erfolgreich betrieben werden!
 
