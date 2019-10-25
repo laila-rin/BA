@@ -2,18 +2,18 @@
 
 Dieses Programm ist im Rahmen der Bachelorarbeit zum Thema "Implementierung und Evaluation eines Chatbots zur Unterstützung von Studierenden bei ihrer Studiumsplanung und Modulauswahl im Studienfach Wirtschaftswissenschaften" der Friedrich-Alexander-Universität Erlangen-Nürnberg entstanden.
 
-In der Bachelorarbeit wird die Konzeption und Implementierung eines Chatbots untersucht. Der Chatbot soll die Aufgaben eines Modulhandbuchs erfüllen und Studierenden bei der Modulauswahl helfen. Der Bot kann Usern anhand ausgewählter Kriterien eine Auswahl passender Module erstellen. 
+In der Bachelorarbeit wird die Konzeption und Implementierung eines Chatbots untersucht. Der Chatbot soll die Aufgaben eines Modulhandbuchs erfüllen und Studierenden bei der Modulauswahl helfen. Der Bot kann Usern anhand ausgewählter Kriterien eine Auswahl passender Module erstellen. Inhaltlich beschränkt sich der Bot auf Module des Studiengangs Wirtschaftswissenschaften mit den Schwerpunkten BWL, VWL und WI an der FAU. Primäre Vorteile des Chatbots sind die unkomplizierte Nutzung und Zeitersparnis bei der Modulauswahl für den User. 
 
-Primäre Vorteile des Chatbots sind die unkomplizierte Nutzung und Zeitersparnis bei der Modulauswahl für den User. 
+Das Programm beschreibt diesen Chatbot, welcher auf der Plattform Discord betrieben wird. Um den Bot lokal betreiben zu können, müssen zuerst die folgenden Voraussetzungen gegeben sein und ein eigener Discord-Bot Erstellt werden. Das Erstellen des Bots erfolgt über die Discord Weboberfläche und wird im 
 
-### Voraussetzungen
+### 1. Voraussetzungen
 
 Voraussetzungen zum Deployment des Chatbots:
 
 * Visual Studio Code
 * Discord Account
 
-### Erstellen und Deployment eines Discord-Bots
+### 2. Erstellen und Deployment eines Discord-Bots
 
 Um den Chatbot zum Laufen zu bekommen muss zuerst eine Bot Applikation eingerichtet und dieser ein Bot hinzugefügt werden. Dies erfolgt über die Weboberfläche des Discord Developer Portals. Eine detailierte Erklärung findet sich hier: 
 ```
@@ -21,7 +21,7 @@ https://discordjs.guide/preparations/setting-up-a-bot-application.html
 ```
 Nach Hinzufügen des Bots wird für diesen automatisch ein geheimer Token generiert, welcher im Folgenden noch genutzt wird.
 
-### Anpassung des Quellcodes
+### 3. Anpassung des Quellcodes
 
 Der Quellcode muss an den folgenden Stellen angepasst werden:
 
