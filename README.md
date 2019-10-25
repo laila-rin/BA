@@ -1,20 +1,19 @@
-# Das Programm zur Bachelorarbeit:
-## Implementierung und Evaluation eines Chatbots zur Unterstützung von Studierenden bei ihrer Studiumsplanung und Modulauswahl im Studienfach Wirtschaftswissenschaften
+# Alfred - ein Chatbot zur Unterstüzuung von Studierenden bei ihrer Studiumsplanung
 
-In der Bachelorarbeit wird die Konzeption und Implementierung eines Chatbots untersucht. Der Chatbot soll die Aufgaben eines Modulhandbuchs erfüllen und Studierenden bei der Modulauswahl helfen. Der Bot kann dem User anhand ausgewählter Kriterien eine Auswahl passender Module erstellen. Vorteile des Chatbots sind die unkomplizierte Nutzung und Zeitersparnis für den User. 
+Dieses Programm ist im Rahmen der Bachelorarbeit zum Thema "Implementierung und Evaluation eines Chatbots zur Unterstützung von Studierenden bei ihrer Studiumsplanung und Modulauswahl im Studienfach Wirtschaftswissenschaften" der Friedrich-Alexander-Universität Erlangen-Nürnberg entstanden.
+
+In der Bachelorarbeit wird die Konzeption und Implementierung eines Chatbots untersucht. Der Chatbot soll die Aufgaben eines Modulhandbuchs erfüllen und Studierenden bei der Modulauswahl helfen. Der Bot kann Usern anhand ausgewählter Kriterien eine Auswahl passender Module erstellen. 
+
+Primäre Vorteile des Chatbots sind die unkomplizierte Nutzung und Zeitersparnis bei der Modulauswahl für den User. 
 
 ### Voraussetzungen
 
 Voraussetzungen zum Deployment des Chatbots:
 
-```
-Visual Studio Code
-```
-```
-Discord Account
-```
+* Visual Studio Code
+* Discord Account
 
-### Erstellen und Deployment eines Bots
+### Erstellen und Deployment eines Discord-Bots
 
 Um den Chatbot zum Laufen zu bekommen muss zuerst eine Bot Applikation eingerichtet und dieser ein Bot hinzugefügt werden. Dies erfolgt über die Weboberfläche des Discord Developer Portals. Eine detailierte Erklärung findet sich hier: 
 ```
